@@ -23,8 +23,33 @@ public class GameManager {
 
             tabuleiro = new Tabuleiro(dimensaoTabuleiro);
 
-            //TODO como pesquisar pelas casas com peças e casas vazias
+            for (int i = 0; i < numeroPecas; i++) {
+                String linha = br.readLine();
+                String[] partes = linha.split(":");
 
+
+                int id = Integer.parseInt(partes[0]);
+                int tipo = Integer.parseInt(partes[1]);
+                int equipa = Integer.parseInt(partes[2]);
+                String nome = partes[3];
+
+                Peca peca = new Peca(id, tipo, equipa, nome, -1, -1); // x e y a -1 porque ainda não sabemos a posição
+                tabuleiro.adicionarPecaAEquipe(peca);
+            }
+/*
+            for (int x = 0; x < dimensaoTabuleiro; x++) {
+                String linhaTabuleiro = br.readLine();
+                String[] partesTabuleiro = linhaTabuleiro.split(":");
+
+                for (int y = 0; y < dimensaoTabuleiro; y++) {
+                    int idPeca = Integer.parseInt(partesTabuleiro[y]);
+                    if (idPeca != 0) {
+                        Peca peca = tabuleiro.getPecaId(idPeca);
+                        tabuleiro.colocarPeca(peca, x, y);
+                    }
+                }
+            }
+*/
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +84,7 @@ public class GameManager {
         return new String[1];
     }
     String[] getPieceInfo(int ID) {
-
+        //mostrar se tá em jogo ou capturado
 
         return new String[1];
     }
@@ -76,7 +101,9 @@ public class GameManager {
     }
     boolean gameOver() {
         //chamado no final de cada jogada
-        //acaba se só existir reis de 1 equipa, existe 1 rei em cada equipa,após 1 captura caso não haja outra captura após 10 jogadas
+        //acaba se só existir reis de 1 equipa (vitoria mostrar a equipa),
+        // existe 1 rei em cada equipa (empate),
+        // após 1 captura caso não haja outra captura após 10 jogadas
         //TODO criar variavel captura e o count
         return true;
     }

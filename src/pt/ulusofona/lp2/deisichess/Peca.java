@@ -11,11 +11,13 @@ public class Peca {
 
     boolean capturado;
 
-    public Peca(int id, int tipo, int equipa, String nome) {
+    public Peca(int id, int tipo, int equipa, String nome, int x, int y) {
         this.id = id;
         this.tipo = tipo;
         this.equipa = equipa;
         this.nome = nome;
+        this.x = x;
+        this.y = y;
     }
 
     public int getId() {
