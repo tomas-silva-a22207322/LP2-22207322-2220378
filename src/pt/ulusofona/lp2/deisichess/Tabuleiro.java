@@ -1,12 +1,13 @@
 package pt.ulusofona.lp2.deisichess;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Tabuleiro {
     int[][] campoJogo;
     int dimensao;
-    List<Peca> equipaBrancas; // equipa a 1
-    List<Peca> equipaPretas; // equipa a 0
+    HashMap<Integer,Peca> pecas = new HashMap<>();
+
 
     public Tabuleiro(int dimensao) {
         this.dimensao = dimensao;
@@ -18,15 +19,6 @@ public class Tabuleiro {
             }
         }
     }
-
-    public void adicionarPecaAEquipe(Peca peca) {
-        if (peca.equipa == 1) {
-            equipaBrancas.add(peca);
-        } else if (peca.equipa == 0) {
-            equipaBrancas.add(peca);
-        }
-    }
-
     public void colocarPeca(Peca peca) {
 
         for (int x = 0; x < dimensao; x++) {

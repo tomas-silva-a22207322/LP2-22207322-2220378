@@ -1,20 +1,15 @@
 package pt.ulusofona.lp2.deisichess;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameManager {
 
     Tabuleiro tabuleiro;
     Peca peca;
     int numeroPecas;
-
-//TODO criar uma classe equipa?
-
 
     boolean loadGame(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -23,37 +18,27 @@ public class GameManager {
 
             tabuleiro = new Tabuleiro(dimensaoTabuleiro);
 
+            tabuleiro.pecas=new HashMap<>();
+
             for (int i = 0; i < numeroPecas; i++) {
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
+                if(partes.length==4){
+                    int id = Integer.parseInt(partes[0]);
+                    int tipo = Integer.parseInt(partes[1]);
+                    int equipa = Integer.parseInt(partes[2]);
+                    String nome = partes[3];
 
-
-                int id = Integer.parseInt(partes[0]);
-                int tipo = Integer.parseInt(partes[1]);
-                int equipa = Integer.parseInt(partes[2]);
-                String nome = partes[3];
-
-                Peca peca = new Peca(id, tipo, equipa, nome, -1, -1); // x e y a -1 porque ainda não sabemos a posição
-                tabuleiro.adicionarPecaAEquipe(peca);
-            }
-/*
-            for (int x = 0; x < dimensaoTabuleiro; x++) {
-                String linhaTabuleiro = br.readLine();
-                String[] partesTabuleiro = linhaTabuleiro.split(":");
-
-                for (int y = 0; y < dimensaoTabuleiro; y++) {
-                    int idPeca = Integer.parseInt(partesTabuleiro[y]);
-                    if (idPeca != 0) {
-                        Peca peca = tabuleiro.getPecaId(idPeca);
-                        tabuleiro.colocarPeca(peca, x, y);
-                    }
+                    Peca peca = new Peca(id, tipo, equipa, nome);
+                    tabuleiro.pecas.put(id, peca);
                 }
             }
-*/
+
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fileNotFoundException) {
             return false;
+        }catch (IOException e){
+            throw new RuntimeException(e);
         }
 
     }

@@ -9,15 +9,15 @@ public class Peca {
     int x;
     int y;
 
+    boolean pecaEmJogo;
     boolean capturado;
 
-    public Peca(int id, int tipo, int equipa, String nome, int x, int y) {
+    public Peca(int id, int tipo, int equipa, String nome) {
         this.id = id;
         this.tipo = tipo;
         this.equipa = equipa;
         this.nome = nome;
-        this.x = x;
-        this.y = y;
+        this.pecaEmJogo = false;
     }
 
     public int getId() {
