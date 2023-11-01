@@ -5,7 +5,6 @@ public class Peca {
     int tipo;
     int equipa;
     String nome;
-    //guardar a posicao na peca?
     int x;
     int y;
 
@@ -20,15 +19,25 @@ public class Peca {
         this.pecaEmJogo = false;
     }
 
-    public int getId() {
-        return id;
-    }
+    //GETTERS
+    public int getId() {return id;}
+    public int getTipo() {return tipo;}
+    public int getEquipa() {return equipa;}
+    public String getNome() {return nome;}
+    public int getX() {return x;}
+    public int getY() {return y;}
+    public boolean isPecaEmJogo() {return pecaEmJogo;}
+    public boolean isCapturado() {return capturado;}
 
-    public boolean isValidMove(int x0, int y0, int x1, int y1) {
-        //validMove do rei
-        int dx = Math.abs(x1 - x0);
-        int dy = Math.abs(y1 - y0);
+    //SETTERS
+    public void setId(int id) {this.id = id;}
+    public void setTipo(int tipo) {this.tipo = tipo;}
+    public void setEquipa(int equipa) {this.equipa = equipa;}
+    public void setNome(String nome) {this.nome = nome;}
+    public void setX(int x) {this.x = x;}
+    public void setY(int y) {this.y = y;}
+    public void setPecaEmJogo(boolean pecaEmJogo) {this.pecaEmJogo = pecaEmJogo;}
+    public void setCapturado(boolean capturado) {this.capturado = capturado;}
 
-        return (dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1);
-    }
+
 }
