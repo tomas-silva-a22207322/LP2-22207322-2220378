@@ -186,7 +186,6 @@ public class GameManager {
         //acaba se só existir reis de 1 equipa (vitoria mostrar a equipa),
         // existe 1 rei em cada equipa (empate),
         // após 1 captura caso não haja outra captura após 10 jogadas
-        //TODO criar variavel captura e o count
 
         int pecasEquipa0 = 0;
         int pecasEquipa1 = 0;
@@ -245,7 +244,21 @@ public class GameManager {
         <jogadasValidasBrancas>
         <jogadasInvalidasBrancas>
          */
-        return new ArrayList<String>();
+        ArrayList<String> results = new ArrayList<String>();
+
+        results.add("JOGO DE CRAZY CHESS");
+        results.add("Resultado: " + getResultado());
+        results.add("---");
+        results.add("Equipa das Pretas");
+        results.add("Capturas: " + getCapturasPretas());
+        results.add("Jogadas Válidas: " + getJogadasValidasPretas());
+        results.add("Jogadas Inválidas: " + getJogadasInvalidasPretas());
+        results.add("Equipa das Brancas");
+        results.add("Capturas: " + getCapturasBrancas());
+        results.add("Jogadas Válidas: " + getJogadasValidasBrancas());
+        results.add("Jogadas Inválidas: " + getJogadasInvalidasBrancas());
+
+        return results;
     }
     JPanel getAuthorsPanel() {
         return null;
