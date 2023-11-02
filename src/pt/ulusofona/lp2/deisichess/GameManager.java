@@ -169,9 +169,15 @@ public class GameManager {
     }
 
     String getPieceInfoAsString(int ID) {
-        //tooltip retorna a peca com a string id | tipo | equipa | alcunha @ (x, y)
+        Peca peca = tabuleiro.getPecaById(ID);
 
-        return  "";
+        if (peca == null) {
+            return "";
+        }
+
+        return String.valueOf(peca.getId()) + " | " + String.valueOf(peca.getTipo()) +
+                " | " + String.valueOf(peca.getEquipa()) + " | " + peca.getNome() +
+                " @ (" + peca.getX() + ", " + peca.getY() + ")";
     }
     int getCurrentTeamID() {return equipaAtual;}
 
