@@ -159,7 +159,13 @@ public class GameManager {
     String[] getPieceInfo(int ID) {
         //id | tipo | equipa | alcunha | mostrar se tá em jogo ou capturado
 
-        return new String[1];
+        Peca peca = tabuleiro.getPecaById(ID);
+
+        if (peca == null) {
+            return new String[]{};
+        }
+        return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
+                String.valueOf(peca.getEquipa()), peca.getNome(), String.valueOf(peca.isCapturado())};
     }
 
     String getPieceInfoAsString(int ID) {
