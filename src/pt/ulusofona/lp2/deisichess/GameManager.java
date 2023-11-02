@@ -17,7 +17,7 @@ public class GameManager {
     int capturasPretas = 0;
     int capturasBrancas = 0;
     int equipaAtual = 0;
-
+    String resultado = "";
 
     boolean loadGame(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -187,7 +187,49 @@ public class GameManager {
         // existe 1 rei em cada equipa (empate),
         // após 1 captura caso não haja outra captura após 10 jogadas
         //TODO criar variavel captura e o count
-        return true;
+
+        int pecasEquipa0 = 0;
+        int pecasEquipa1 = 0;
+
+        int reisEquipa0 = 0;
+        int reisEquipa1 = 0;
+
+        for (Peca peca : tabuleiro.getPecas().values()) {
+            if (peca.getEquipa() == 0) {
+                pecasEquipa0++;
+                if (peca.getTipo() == 0) {
+                    reisEquipa0++;
+                }
+            } else if (peca.getEquipa() == 1) {
+                pecasEquipa1++;
+                if (peca.getTipo() == 0) {
+                    reisEquipa1++;
+                }
+            }
+        }
+
+        if (pecasEquipa0 == 0) {
+            setResultado("VENCERAM AS PRETAS");
+            return true;
+        }
+
+        if (pecasEquipa1 == 0) {
+            setResultado("VENCERAM AS BRANCAS");
+            return true;
+        }
+
+        if (reisEquipa0 == 1 && reisEquipa1 == 1) {
+            setResultado("EMPATE");
+            return true;
+        }
+
+        if (jogadasAposCaptura >= 10) {
+            // Após 1 captura, se não houve outra captura após 10 jogadas, o jogo acaba (o resultado é empate?)
+            setResultado("EMPATE");
+            return true;
+        }
+
+        return false;
     }
     ArrayList<String> getGameResults() {
         /*
@@ -221,7 +263,7 @@ public class GameManager {
     public int getCapturasPretas() {return capturasPretas;}
     public int getCapturasBrancas() {return capturasBrancas;}
     public int getEquipaAtual() {return equipaAtual;}
-
+    public java.lang.String getResultado() {return resultado;}
 
     //SETTERS
     public void setTabuleiro(Tabuleiro tabuleiro) {this.tabuleiro = tabuleiro;}
@@ -234,4 +276,5 @@ public class GameManager {
     public void setCapturasPretas(int capturasPretas) {this.capturasPretas = capturasPretas;}
     public void setCapturasBrancas(int capturasBrancas) {this.capturasBrancas = capturasBrancas;}
     public void setEquipaAtual(int equipaAtual) {this.equipaAtual = equipaAtual;}
+    public void setResultado(java.lang.String resultado) {this.resultado = resultado;}
 }
