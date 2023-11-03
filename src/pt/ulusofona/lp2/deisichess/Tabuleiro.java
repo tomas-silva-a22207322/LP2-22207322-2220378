@@ -52,8 +52,9 @@ public class Tabuleiro {
         return pecas.get(id);
     }
     public Peca getPecabyPosicao(int x,int y){
-        return campoJogo[x][y];
+        return campoJogo[y][x];
     }
+
 
 
     //SETTERS

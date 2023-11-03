@@ -19,7 +19,10 @@ public class GameManager {
     int equipaAtual = 0;
     String resultado = "";
 
-    boolean loadGame(File file) {
+    public GameManager() {
+    }
+
+    public boolean loadGame(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
             int numeroPecas = Integer.parseInt(br.readLine());
@@ -80,8 +83,8 @@ public class GameManager {
         }
 
     }
-    int getBoardSize() {return tabuleiro.getDimensao();}
-    boolean move(int x0, int y0, int x1, int y1) {
+    public int getBoardSize() {return tabuleiro.getDimensao();}
+    public boolean move(int x0, int y0, int x1, int y1) {
 
         if (tabuleiro.getPecabyPosicao(x0,y0) == null) {
             return false;
@@ -153,6 +156,7 @@ public class GameManager {
         if (peca == null) {
             return new String[]{};
         }
+        String foto = (peca.getEquipa() == 0) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
 
         return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
                 String.valueOf(peca.getEquipa()), peca.getNome(), foto};
@@ -291,6 +295,7 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         return null;
     }
+
 
 
     //GETTERS
