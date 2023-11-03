@@ -69,6 +69,7 @@ public class GameManager {
                     }
                 }
             }
+            tabuleiro.setTabuleiro(pecaTabuleiro);
 
 
             return true;
@@ -141,7 +142,7 @@ public class GameManager {
 
         return false;
     }
-    String[] getSquareInfo(int x, int y) {
+    public String[] getSquareInfo(int x, int y) {
         //id | tipo | equipa | alcunha | png(null)
         if (x < 0 || x > tabuleiro.dimensao || y < 0 || y > tabuleiro.dimensao) {
             return null;
@@ -154,34 +155,61 @@ public class GameManager {
         }
 
         return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
-                String.valueOf(peca.getEquipa()), peca.getNome(), "null"};
+                String.valueOf(peca.getEquipa()), peca.getNome(), foto};
     }
-    String[] getPieceInfo(int ID) {
+
+    public String[] getPieceInfo(int ID) {
         //id | tipo | equipa | alcunha | mostrar se tá em jogo ou capturado
 
         Peca peca = tabuleiro.getPecaById(ID);
 
         if (peca == null) {
-            return new String[]{};
+            return new String[0];
         }
-        return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
-                String.valueOf(peca.getEquipa()), peca.getNome(), String.valueOf(peca.isCapturado())};
+
+        String id = String.valueOf(peca.getId());
+        String tipo = String.valueOf(peca.getTipo());
+        String equipa = String.valueOf(peca.getEquipa());
+        String nome = peca.getNome();
+        String[] infoArray;
+
+        if (peca.isCapturado()) {
+            String coordenadas = "(N/A)";
+            infoArray = new String[]{id, tipo, equipa, nome, coordenadas};
+        } else {
+            String coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
+            infoArray = new String[]{id, tipo, equipa, nome, coordenadas};
+        }
+
+        return infoArray;
     }
 
-    String getPieceInfoAsString(int ID) {
+    public String getPieceInfoAsString(int ID) {
         Peca peca = tabuleiro.getPecaById(ID);
+        String info = "";
 
         if (peca == null) {
-            return "";
+            return info;
         }
 
-        return String.valueOf(peca.getId()) + " | " + String.valueOf(peca.getTipo()) +
-                " | " + String.valueOf(peca.getEquipa()) + " | " + peca.getNome() +
-                " @ (" + peca.getX() + ", " + peca.getY() + ")";
-    }
-    int getCurrentTeamID() {return equipaAtual;}
+        String id = String.valueOf(peca.getId());
+        String tipo = String.valueOf(peca.getTipo());
+        String equipa = String.valueOf(peca.getEquipa());
+        String nome = peca.getNome();
 
-    boolean gameOver() {
+        if (peca.isCapturado()) {
+            String coordenadas = "(N/A)";
+             info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
+            return info;
+        }
+        String coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
+        info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
+
+        return info;
+    }
+    public int getCurrentTeamID() {return equipaAtual;}
+
+    public boolean gameOver() {
         //chamado no final de cada jogada
         //acaba se só existir reis de 1 equipa (vitoria mostrar a equipa),
         // existe 1 rei em cada equipa (empate),
@@ -230,7 +258,7 @@ public class GameManager {
 
         return false;
     }
-    ArrayList<String> getGameResults() {
+    public ArrayList<String> getGameResults() {
         /*
         JOGO DE CRAZY CHESS
         Resultado: <(vitoria de que equipa ou empate)>
@@ -260,7 +288,7 @@ public class GameManager {
 
         return results;
     }
-    JPanel getAuthorsPanel() {
+    public JPanel getAuthorsPanel() {
         return null;
     }
 

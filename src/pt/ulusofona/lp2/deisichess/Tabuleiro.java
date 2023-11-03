@@ -57,8 +57,11 @@ public class Tabuleiro {
 
 
     //SETTERS
+    public void setTabuleiro(Peca[][] board){
+        this.campoJogo = board;
+    }
     public void setPecabyPosicao(int x,int y,Peca peca){
-        this.campoJogo[x][y] = peca;
+        this.campoJogo[y][x] = peca;
     }
 
     public void setDimensao(int dimensao) {this.dimensao = dimensao;}
