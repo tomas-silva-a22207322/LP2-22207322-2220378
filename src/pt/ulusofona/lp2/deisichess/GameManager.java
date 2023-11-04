@@ -9,7 +9,7 @@ public class GameManager {
 
     Tabuleiro tabuleiro;
     int numeroPecas;
-    int jogadasAposCaptura = 0;
+    int jogadasAposCaptura = -1;
     int jogadasValidasPretas = 0;
     int jogadasValidasBrancas = 0;
     int jogadasInvalidasPretas = 0;
@@ -29,7 +29,7 @@ public class GameManager {
 
             tabuleiro = new Tabuleiro(dimensaoTabuleiro);
 
-            tabuleiro.pecas=new HashMap<>();
+            tabuleiro.pecas = new HashMap<>();
 
             for (int i = 0; i < numeroPecas; i++) {
                 String linha = br.readLine();
@@ -111,11 +111,13 @@ public class GameManager {
                     capturasBrancas++;
                 }
 
-                jogadasAposCaptura = 0;
+                setJogadasAposCaptura(0);
             } else {
 
                 if (capturasBrancas >= 1 || capturasPretas >= 1) {
-                    jogadasAposCaptura++;
+                    if(jogadasAposCaptura >= 0) {
+                        jogadasAposCaptura++;
+                    }
                 }
             }
 
@@ -219,34 +221,26 @@ public class GameManager {
         int pecasEquipa0 = 0;
         int pecasEquipa1 = 0;
 
-        int reisEquipa0 = 0;
-        int reisEquipa1 = 0;
 
         for (Peca peca : tabuleiro.getPecas().values()) {
-            if (peca.getEquipa() == 0) {
+            if (peca.getEquipa() == 0 && !peca.isCapturado()) {
                 pecasEquipa0++;
-                if (peca.getTipo() == 0) {
-                    reisEquipa0++;
-                }
-            } else if (peca.getEquipa() == 1) {
+            } else if (peca.getEquipa() == 1 && !peca.isCapturado()) {
                 pecasEquipa1++;
-                if (peca.getTipo() == 0) {
-                    reisEquipa1++;
-                }
             }
         }
 
         if (pecasEquipa0 == 0) {
-            setResultado("VENCERAM AS PRETAS");
-            return true;
-        }
-
-        if (pecasEquipa1 == 0) {
             setResultado("VENCERAM AS BRANCAS");
             return true;
         }
 
-        if (reisEquipa0 == 1 && reisEquipa1 == 1) {
+        if (pecasEquipa1 == 0) {
+            setResultado("VENCERAM AS PRETAS");
+            return true;
+        }
+
+        if (pecasEquipa0 == 1 && pecasEquipa1 == 1) {
             setResultado("EMPATE");
             return true;
         }
@@ -279,13 +273,13 @@ public class GameManager {
         results.add("Resultado: " + getResultado());
         results.add("---");
         results.add("Equipa das Pretas");
-        results.add("Capturas: " + getCapturasPretas());
-        results.add("Jogadas Válidas: " + getJogadasValidasPretas());
-        results.add("Jogadas Inválidas: " + getJogadasInvalidasPretas());
+        results.add(String.valueOf(getCapturasPretas()));
+        results.add(String.valueOf(getJogadasValidasPretas()));
+        results.add(String.valueOf(getJogadasInvalidasPretas()));
         results.add("Equipa das Brancas");
-        results.add("Capturas: " + getCapturasBrancas());
-        results.add("Jogadas Válidas: " + getJogadasValidasBrancas());
-        results.add("Jogadas Inválidas: " + getJogadasInvalidasBrancas());
+        results.add(String.valueOf(getCapturasBrancas()));
+        results.add(String.valueOf(getJogadasValidasBrancas()));
+        results.add(String.valueOf(getJogadasInvalidasBrancas()));
 
         return results;
     }
