@@ -179,13 +179,11 @@ public class GameManager {
         String[] infoArray;
 
         if(peca.isCapturado()){
-            captura = "capturado";
-            infoArray = new String[]{id, tipo, equipa, nome, captura,"",""};
+            infoArray = new String[]{id, tipo, equipa, nome, "captura","",""};
             return infoArray;
         }
-        captura = "em jogo";
         String coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
-        infoArray = new String[]{id, tipo, equipa, nome,captura, String.valueOf(peca.getX()), String.valueOf(peca.getY())};
+        infoArray = new String[]{id, tipo, equipa, nome,"em jogo", String.valueOf(peca.getX()), String.valueOf(peca.getY())};
 
         return infoArray;
     }
