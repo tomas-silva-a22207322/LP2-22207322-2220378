@@ -90,10 +90,21 @@ public class GameManager {
         Peca peca1 = tabuleiro.getPecabyPosicao(x1,y1);
 
         if (peca0 == null) {
+            if(equipaAtual == 0) {
+                jogadasInvalidasPretas++;
+            } else {
+                jogadasInvalidasBrancas++;
+            }
             return false;
         }
 
         if(peca0.getEquipa() != equipaAtual) {
+
+            if(equipaAtual == 0) {
+                jogadasInvalidasPretas++;
+            } else {
+                jogadasInvalidasBrancas++;
+            }
             return false;
         }
 
