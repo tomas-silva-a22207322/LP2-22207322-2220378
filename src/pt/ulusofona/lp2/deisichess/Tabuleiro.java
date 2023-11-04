@@ -23,8 +23,10 @@ public class Tabuleiro {
 
     public boolean isValidMove(int x0, int y0, int x1, int y1) {
 
-        if (getPecabyPosicao(x0, y0).getEquipa() == getPecabyPosicao(x1, y1).getEquipa()){
-            return false;
+        if(getPecabyPosicao(x1, y1) != null) {
+            if (getPecabyPosicao(x0, y0).getEquipa() == getPecabyPosicao(x1, y1).getEquipa()) {
+                return false;
+            }
         }
         //validMove do rei
         if (getPecabyPosicao(x0, y0).getTipo() == 0) {
