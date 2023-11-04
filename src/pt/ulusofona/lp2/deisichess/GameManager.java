@@ -111,21 +111,18 @@ public class GameManager {
                     capturasBrancas++;
                 }
 
-                tabuleiro.setPecabyPosicao(x1,y1, peca0);
-                peca0.setX(y1);
-                peca0.setY(x1);
-                tabuleiro.setPecabyPosicao(x0,y0, null);
-
                 jogadasAposCaptura = 0;
             } else {
-                tabuleiro.campoJogo[y1][x1] = peca0;
-                peca0.setX(y1);
-                peca0.setY(x1);
 
                 if (capturasBrancas >= 1 || capturasPretas >= 1) {
                     jogadasAposCaptura++;
                 }
             }
+
+            tabuleiro.campoJogo[y1][x1] = peca0;
+            peca0.setX(x1);
+            peca0.setY(y1);
+            tabuleiro.setPecabyPosicao(x0, y0, null);
 
             if(equipaAtual == 0) {
                 jogadasValidasPretas++;
@@ -179,7 +176,7 @@ public class GameManager {
         String[] infoArray;
 
         if(peca.isCapturado()){
-            infoArray = new String[]{id, tipo, equipa, nome, "captura","",""};
+            infoArray = new String[]{id, tipo, equipa, nome, "capturado","",""};
             return infoArray;
         }
         String coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
