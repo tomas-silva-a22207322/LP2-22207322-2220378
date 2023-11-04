@@ -204,7 +204,7 @@ public class GameManager {
         String nome = peca.getNome();
 
         if (peca.isCapturado()) {
-            String coordenadas = "(N/A)";
+            String coordenadas = "(n/a)";
              info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
             return info;
         }
