@@ -141,9 +141,9 @@ public class GameManager {
             getTabuleiro().setPecabyPosicao(x0, y0, null);
 
             if(getEquipaAtual() == 0) {
-                setJogadasValidasPretas(getJogadasInvalidasPretas() + 1);
+                setJogadasValidasPretas(getJogadasValidasPretas() + 1);
             } else {
-                setJogadasValidasBrancas(getJogadasInvalidasBrancas() + 1);
+                setJogadasValidasBrancas(getJogadasValidasBrancas() + 1);
             }
 
             setEquipaAtual((getEquipaAtual() == 0) ? 1 : 0);
