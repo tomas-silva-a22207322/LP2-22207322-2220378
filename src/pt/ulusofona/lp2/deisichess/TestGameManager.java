@@ -1,9 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
-import org.testng.annotations.Test;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
-import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestGameManager {
     //A função de teste não pode estar vazia;
@@ -62,9 +60,8 @@ public class TestGameManager {
         tabuleiro.setPecabyPosicao(0, 0, peca);
 
         String[] result = gameManager.getSquareInfo(0, 0);
-
-        // Assert
         String[] expected = {"1", "0", "0", "Rei", "crazy_emoji_black.png"};
+
         assertArrayEquals(expected, result);
     }
 
@@ -79,11 +76,10 @@ public class TestGameManager {
         peca.setCapturado(false);
         tabuleiro.getPecas().put(1, peca);
         tabuleiro.setPecabyPosicao(0, 0, peca);
-        // Act
+
         boolean resultado = gameManager.gameOver();
 
-        // Assert
-        assertTrue(resultado); // The game should be over.
+        assertTrue(resultado);
         assertEquals("VENCERAM AS BRANCAS", gameManager.getResultado());
     }
 
