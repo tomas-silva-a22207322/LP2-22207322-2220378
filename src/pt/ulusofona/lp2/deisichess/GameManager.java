@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GameManager {
 
     Tabuleiro tabuleiro;
     int numeroPecas;
-    int jogadasAposCaptura = 0;
+    int jogadasAposCaptura = -1;
     int jogadasValidasPretas = 0;
     int jogadasValidasBrancas = 0;
     int jogadasInvalidasPretas = 0;
@@ -17,34 +18,40 @@ public class GameManager {
     int capturasPretas = 0;
     int capturasBrancas = 0;
     int equipaAtual = 0;
+    String resultado = "";
 
+    public GameManager() {
+    }
 
-    boolean loadGame(File file) {
+    public void loadGame(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
             int numeroPecas = Integer.parseInt(br.readLine());
 
-            tabuleiro = new Tabuleiro(dimensaoTabuleiro);
+            setTabuleiro(new Tabuleiro(dimensaoTabuleiro));
 
-            tabuleiro.pecas=new HashMap<>();
+            getTabuleiro().setPecas(new HashMap<>());
 
             for (int i = 0; i < numeroPecas; i++) {
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
-                if(partes.length==4){
+                if(partes.length == 4){
                     int id = Integer.parseInt(partes[0]);
                     int tipo = Integer.parseInt(partes[1]);
                     int equipa = Integer.parseInt(partes[2]);
                     String nome = partes[3];
 
                     Peca peca = new Peca(id, tipo, equipa, nome);
-                    tabuleiro.pecas.put(id, peca);
+
+                    HashMap<Integer, Peca> pecasHM = getTabuleiro().getPecas();
+                    pecasHM.put(id, peca);
+                    getTabuleiro().setPecas(pecasHM);
                 }
             }
 
             int[][] posicaoPecas = new int[dimensaoTabuleiro][dimensaoTabuleiro] ;
 
-            for (int x = 0; x< dimensaoTabuleiro; x++){
+            for (int x = 0; x < dimensaoTabuleiro; x++){
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
                 for (int y = 0; y<dimensaoTabuleiro; y++){
@@ -59,137 +66,209 @@ public class GameManager {
                 for (int y = 0; y < dimensaoTabuleiro; y++) {
                     int id = posicaoPecas[x][y];
                     if (id != 0) {
-                        Peca peca = tabuleiro.getPecaById(id);
+                        Peca peca = getTabuleiro().getPecaById(id);
                         if (peca != null) {
                             pecaTabuleiro[x][y] = peca;
-                            peca.setX(x);
-                            peca.setY(y);
-                            peca.setPecaEmJogo(true);
+                            peca.setX(y);
+                            peca.setY(x);
+                            peca.setCapturado(false);
                         }
                     }
                 }
             }
+            getTabuleiro().setTabuleiro(pecaTabuleiro);
 
 
-            return true;
+            //return true;
         } catch (FileNotFoundException fileNotFoundException) {
-            return false;
+           // return false;
         }catch (IOException e){
             throw new RuntimeException(e);
         }
 
     }
-    int getBoardSize() {return tabuleiro.getDimensao();}
-    boolean move(int x0, int y0, int x1, int y1) {
+    public int getBoardSize() {return getTabuleiro().getDimensao();}
 
-        if (tabuleiro.getPecabyPosicao(x0,y0) == null) {
+    public boolean move(int x0, int y0, int x1, int y1) {
+        Peca peca0 = getTabuleiro().getPecabyPosicao(x0,y0);
+        Peca peca1 = getTabuleiro().getPecabyPosicao(x1,y1);
+
+        if (peca0 == null) {
+            if(getEquipaAtual() == 0) {
+                setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
+            } else {
+                setJogadasInvalidasBrancas(getJogadasInvalidasBrancas() + 1);
+            }
             return false;
         }
 
-        if(tabuleiro.getPecabyPosicao(x0,y0).getEquipa() != equipaAtual) {
+        if(peca0.getEquipa() != getEquipaAtual()) {
+
+            if(getEquipaAtual() == 0) {
+                setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
+            } else {
+                setJogadasInvalidasBrancas(getJogadasInvalidasBrancas() + 1);
+            }
             return false;
         }
 
-        if (tabuleiro.isValidMove(x0, y0, x1, y1)) {
-            Peca peca = tabuleiro.campoJogo[x0][y0];
+        if (getTabuleiro().isValidMove(x0, y0, x1, y1)) {
 
+            if (peca1 != null) {
 
-            if (tabuleiro.getPecabyPosicao(x1,y1) != null) {
+                peca1.setCapturado(true);
+                peca1.setX(-1);
+                peca1.setY(-1);
 
-                tabuleiro.getPecabyPosicao(x1,y1).setPecaEmJogo(false);
-                tabuleiro.getPecabyPosicao(x1,y1).setX(-1);
-                tabuleiro.getPecabyPosicao(x1,y1).setY(-1);
-
-                if(equipaAtual == 0) {
-                    capturasPretas++;
+                if(getEquipaAtual() == 0) {
+                    setCapturasPretas(getCapturasPretas() + 1);
                 } else {
-                    capturasBrancas++;
+                    setCapturasBrancas(getCapturasBrancas() + 1);
                 }
 
-                tabuleiro.setPecabyPosicao(x1,y1, tabuleiro.getPecabyPosicao(x0,y0));
-                tabuleiro.getPecabyPosicao(x1,y1).setX(x1);
-                tabuleiro.getPecabyPosicao(x1,y1).setY(y1);
-
-                tabuleiro.campoJogo[x0][y0] = null;
-                jogadasAposCaptura = 0;
+                setJogadasAposCaptura(0);
             } else {
-                tabuleiro.campoJogo[x1][y1] = peca;
-                peca.x = x1;
-                peca.y = y1;
 
-                if (capturasBrancas >= 1 || capturasPretas >= 1) {
-                    jogadasAposCaptura++;
+                if (getCapturasBrancas() >= 1 || getCapturasPretas() >= 1) {
+                    if(getJogadasAposCaptura() >= 0) {
+                        setJogadasAposCaptura(getJogadasAposCaptura() + 1);
+                    }
                 }
             }
 
-            if(equipaAtual == 0) {
-                jogadasValidasPretas++;
+            getTabuleiro().getCampoJogo()[y1][x1] = peca0;
+            peca0.setX(x1);
+            peca0.setY(y1);
+            getTabuleiro().setPecabyPosicao(x0, y0, null);
+
+            if(getEquipaAtual() == 0) {
+                setJogadasValidasPretas(getJogadasValidasPretas() + 1);
             } else {
-                jogadasValidasBrancas++;
+                setJogadasValidasBrancas(getJogadasValidasBrancas() + 1);
             }
 
-            equipaAtual = (equipaAtual == 0) ?  1 : 0;
+            setEquipaAtual((getEquipaAtual() == 0) ? 1 : 0);
 
             return true;
         }
 
-        if(equipaAtual == 0) {
-            jogadasInvalidasPretas++;
+        if(getEquipaAtual() == 0) {
+            setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
         } else {
-            jogadasInvalidasBrancas++;
+            setJogadasInvalidasBrancas(getJogadasInvalidasBrancas() + 1);
         }
 
         return false;
     }
-    String[] getSquareInfo(int x, int y) {
+    public String[] getSquareInfo(int x, int y) {
         //id | tipo | equipa | alcunha | png(null)
-        if (x < 0 || x > tabuleiro.dimensao || y < 0 || y > tabuleiro.dimensao) {
+        if (x < 0 || x > getTabuleiro().getDimensao() || y < 0 || y > getTabuleiro().getDimensao()) {
             return null;
         }
 
-        Peca peca = tabuleiro.getPecabyPosicao(x, y);
+        Peca peca = getTabuleiro().getPecabyPosicao(x, y);
 
         if (peca == null) {
             return new String[]{};
         }
+        String foto = (peca.getEquipa() == 0) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
 
         return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
-                String.valueOf(peca.getEquipa()), peca.getNome(), "null"};
+                String.valueOf(peca.getEquipa()), peca.getNome(), foto};
     }
-    String[] getPieceInfo(int ID) {
+
+    public String[] getPieceInfo(int ID) {
         //id | tipo | equipa | alcunha | mostrar se tá em jogo ou capturado
 
-        Peca peca = tabuleiro.getPecaById(ID);
+        Peca peca = getTabuleiro().getPecaById(ID);
 
         if (peca == null) {
-            return new String[]{};
+            return new String[0];
         }
-        return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
-                String.valueOf(peca.getEquipa()), peca.getNome(), String.valueOf(peca.isCapturado())};
+
+        String id = String.valueOf(peca.getId());
+        String tipo = String.valueOf(peca.getTipo());
+        String equipa = String.valueOf(peca.getEquipa());
+        String nome = peca.getNome();
+        String[] infoArray;
+
+        if(peca.isCapturado()){
+            infoArray = new String[]{id, tipo, equipa, nome, "capturado","",""};
+            return infoArray;
+        }
+        String coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
+        infoArray = new String[]{id, tipo, equipa, nome,"em jogo", String.valueOf(peca.getX()), String.valueOf(peca.getY())};
+
+        return infoArray;
     }
 
-    String getPieceInfoAsString(int ID) {
-        Peca peca = tabuleiro.getPecaById(ID);
+    public String getPieceInfoAsString(int ID) {
+        Peca peca = getTabuleiro().getPecaById(ID);
+        String info = "";
 
         if (peca == null) {
-            return "";
+            return info;
         }
 
-        return String.valueOf(peca.getId()) + " | " + String.valueOf(peca.getTipo()) +
-                " | " + String.valueOf(peca.getEquipa()) + " | " + peca.getNome() +
-                " @ (" + peca.getX() + ", " + peca.getY() + ")";
-    }
-    int getCurrentTeamID() {return equipaAtual;}
+        String id = String.valueOf(peca.getId());
+        String tipo = String.valueOf(peca.getTipo());
+        String equipa = String.valueOf(peca.getEquipa());
+        String nome = peca.getNome();
 
-    boolean gameOver() {
+        if (peca.isCapturado()) {
+            String coordenadas = "(n/a)";
+            info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
+            return info;
+        }
+        String coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
+        info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
+
+        return info;
+    }
+    public int getCurrentTeamID() {return getEquipaAtual();}
+
+    public boolean gameOver() {
         //chamado no final de cada jogada
         //acaba se só existir reis de 1 equipa (vitoria mostrar a equipa),
         // existe 1 rei em cada equipa (empate),
         // após 1 captura caso não haja outra captura após 10 jogadas
-        //TODO criar variavel captura e o count
-        return true;
+
+        int pecasEquipa0 = 0;
+        int pecasEquipa1 = 0;
+
+
+        for (Peca peca : getTabuleiro().getPecas().values()) {
+            if (peca.getEquipa() == 0 && !peca.isCapturado()) {
+                pecasEquipa0++;
+            } else if (peca.getEquipa() == 1 && !peca.isCapturado()) {
+                pecasEquipa1++;
+            }
+        }
+
+        if (pecasEquipa0 == 0) {
+            setResultado("VENCERAM AS BRANCAS");
+            return true;
+        }
+
+        if (pecasEquipa1 == 0) {
+            setResultado("VENCERAM AS PRETAS");
+            return true;
+        }
+
+        if (pecasEquipa0 == 1 && pecasEquipa1 == 1) {
+            setResultado("EMPATE");
+            return true;
+        }
+
+        if (getJogadasAposCaptura() >= 10) {
+            // Após 1 captura, se não houve outra captura após 10 jogadas, o jogo acaba (o resultado é empate?)
+            setResultado("EMPATE");
+            return true;
+        }
+
+        return false;
     }
-    ArrayList<String> getGameResults() {
+    public ArrayList<String> getGameResults() {
         /*
         JOGO DE CRAZY CHESS
         Resultado: <(vitoria de que equipa ou empate)>
@@ -203,11 +282,38 @@ public class GameManager {
         <jogadasValidasBrancas>
         <jogadasInvalidasBrancas>
          */
-        return new ArrayList<String>();
+        ArrayList<String> results = new ArrayList<String>();
+
+        results.add("JOGO DE CRAZY CHESS");
+        results.add("Resultado: " + getResultado());
+        results.add("---");
+        results.add("Equipa das Pretas");
+        results.add(String.valueOf(getCapturasPretas()));
+        results.add(String.valueOf(getJogadasValidasPretas()));
+        results.add(String.valueOf(getJogadasInvalidasPretas()));
+        results.add("Equipa das Brancas");
+        results.add(String.valueOf(getCapturasBrancas()));
+        results.add(String.valueOf(getJogadasValidasBrancas()));
+        results.add(String.valueOf(getJogadasInvalidasBrancas()));
+
+        return results;
     }
-    JPanel getAuthorsPanel() {
+    public JPanel getAuthorsPanel() {
         return null;
     }
+
+    public void saveGame(File file){
+
+    }
+
+    public void undo(){
+
+    }
+
+    public List<Comparable> getHints(int x, int y){
+        return null;
+    }
+
 
 
     //GETTERS
@@ -221,7 +327,7 @@ public class GameManager {
     public int getCapturasPretas() {return capturasPretas;}
     public int getCapturasBrancas() {return capturasBrancas;}
     public int getEquipaAtual() {return equipaAtual;}
-
+    public java.lang.String getResultado() {return resultado;}
 
     //SETTERS
     public void setTabuleiro(Tabuleiro tabuleiro) {this.tabuleiro = tabuleiro;}
@@ -234,4 +340,5 @@ public class GameManager {
     public void setCapturasPretas(int capturasPretas) {this.capturasPretas = capturasPretas;}
     public void setCapturasBrancas(int capturasBrancas) {this.capturasBrancas = capturasBrancas;}
     public void setEquipaAtual(int equipaAtual) {this.equipaAtual = equipaAtual;}
+    public void setResultado(java.lang.String resultado) {this.resultado = resultado;}
 }
