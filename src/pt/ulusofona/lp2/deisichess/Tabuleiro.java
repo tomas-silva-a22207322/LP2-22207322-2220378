@@ -20,27 +20,19 @@ public class Tabuleiro {
         }
     }
 
-
     public boolean isValidMove(int x0, int y0, int x1, int y1) {
+        Peca pecaOrigem = getPecabyPosicao(x0, y0);
+        Peca pecaDestino = getPecabyPosicao(x1, y1);
 
-        if(getPecabyPosicao(x1, y1) != null) {
-            if (getPecabyPosicao(x0, y0).getEquipa() == getPecabyPosicao(x1, y1).getEquipa()) {
-                return false;
-            }
-        }
-        //validMove do rei
-        if (getPecabyPosicao(x0, y0).getTipo() == 0) {
-
-            int dx = Math.abs(x1 - x0);
-            int dy = Math.abs(y1 - y0);
-
-            if ((dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1)) {
-                return true;
+        if (pecaOrigem != null) {
+            if (pecaDestino != null && pecaOrigem.getEquipa() == pecaDestino.getEquipa()) {
+                return false; // Mesma equipa, movimento inválido
             }
 
+            return pecaOrigem.isValidMove(x0, y0, x1, y1); // Validação de movimento da peça
         }
 
-        return false;
+        return false; // Não há peça na posição de origem
     }
 
 

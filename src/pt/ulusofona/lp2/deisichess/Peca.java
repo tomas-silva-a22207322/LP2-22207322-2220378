@@ -1,6 +1,6 @@
 package pt.ulusofona.lp2.deisichess;
 
-public class Peca {
+public abstract class Peca {
     int id;
     int tipo;
     int equipa;
@@ -16,6 +16,9 @@ public class Peca {
         this.nome = nome;
         this.capturado = true;
     }
+
+
+    public abstract boolean isValidMove(int x0, int y0, int x1, int y1);
 
     //GETTERS
     public int getId() {return id;}
