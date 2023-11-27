@@ -1,13 +1,12 @@
 package pt.ulusofona.lp2.deisichess;
 import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Tabuleiro {
 
     Peca[][] campoJogo;
     int dimensao;
     HashMap<Integer, Peca> pecas = new HashMap<>();
+    int turno = 1;
 
     public Tabuleiro(int dimensao) {
         this.dimensao = dimensao;
@@ -29,7 +28,7 @@ public class Tabuleiro {
                 return false; // Mesma equipa, movimento inválido
             }
 
-            return pecaOrigem.isValidMove(x0, y0, x1, y1); // Validação de movimento da peça
+            return pecaOrigem.isValidMove(x0, y0, x1, y1, getTurno()); // Validação de movimento da peça
         }
 
         return false; // Não há peça na posição de origem
@@ -49,7 +48,7 @@ public class Tabuleiro {
         return campoJogo[y][x];
     }
 
-
+    public int getTurno() {return turno;}
 
     //SETTERS
     public void setTabuleiro(Peca[][] board){
@@ -64,4 +63,6 @@ public class Tabuleiro {
     public void setCampoJogo(Peca[][] campoJogo) {this.campoJogo = campoJogo;}
 
     public void setPecas(HashMap<Integer, Peca> pecas) {this.pecas = pecas;}
+    public void setTurno(int turno) {this.turno = turno;}
+
 }
