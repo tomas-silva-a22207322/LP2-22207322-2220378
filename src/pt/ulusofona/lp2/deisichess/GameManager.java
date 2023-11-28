@@ -23,6 +23,7 @@ public class GameManager {
     }
 
     public boolean loadGame(File file) {
+        //throws InvalidGameInputException, IOException
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
             int numeroPecas = Integer.parseInt(br.readLine());
@@ -300,6 +301,20 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         return null;
     }
+
+    /*public void saveGame(File file) throws IOException {
+
+    }
+    public void undo() {
+
+    }
+    public List<Comparable> getHints(int x, int y) {
+
+    }
+    public Map<String,String> customizeBoard() (*) {
+
+    }*/
+
 
 
 
