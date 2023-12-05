@@ -8,6 +8,7 @@ public abstract class Peca {
     int x;
     int y;
     boolean capturado;
+    int pontuacao;
 
     public Peca(int id, int tipo, int equipa, String nome) {
         this.id = id;
