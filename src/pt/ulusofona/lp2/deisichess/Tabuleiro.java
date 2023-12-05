@@ -28,7 +28,7 @@ public class Tabuleiro {
                 return false; // Mesma equipa, movimento inválido
             }
 
-            return pecaOrigem.isValidMove(x0, y0, x1, y1, getTurno()); // Validação de movimento da peça
+            return pecaOrigem.isValidMove(x0, y0, x1, y1, getTurno(), ); // Validação de movimento da peça
         }
 
         return false; // Não há peça na posição de origem

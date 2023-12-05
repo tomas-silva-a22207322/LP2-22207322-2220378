@@ -6,7 +6,7 @@ public class Rei extends Peca{
     }
 
     @Override
-    public boolean isValidMove(int x0, int y0, int x1, int y1, int turno) {
+    public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
 
