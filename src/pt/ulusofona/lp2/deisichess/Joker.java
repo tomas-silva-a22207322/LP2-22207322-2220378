@@ -8,7 +8,7 @@ public class Joker extends Peca{
     }
 
     @Override
-    public boolean isValidMove(int x0, int y0, int x1, int y1, int turno) {
+    public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
         int movePeca = turno % 6;
 
         Peca peca;
