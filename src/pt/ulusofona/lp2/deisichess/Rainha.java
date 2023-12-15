@@ -8,10 +8,49 @@ public class Rainha extends Peca{
     }
 
     @Override
-    public boolean isValidMove(int x0, int y0, int x1, int y1, int turno) {
+    public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
 
-        return (dx <= 5 && dy <= 5 && (dx == 0 || dy == 0 || dx == dy));
+        if (dx <= 5 && dy <= 5 && (dx == 0 || dy == 0 || dx == dy)) {
+            int xCompare = Integer.compare(x1, x0);
+            int yCompare = Integer.compare(y1, y0);
+
+            // Verifica o caminho horizontal
+            if (dx > 0 && dy == 0) {
+                for (int i = 1; i < dx; i++) {
+                    int x = x0 + i * xCompare;
+                    if (tabuleiro.getPecabyPosicao(x, y0) != null) {
+                        return false;
+                    }
+                }
+            }
+            // Verifica o caminho vertical
+            else if (dy > 0 && dx == 0) {
+                for (int i = 1; i < dy; i++) {
+                    int y = y0 + i * yCompare;
+                    if (tabuleiro.getPecabyPosicao(x0, y) != null) {
+                        return false;
+                    }
+                }
+            }
+            // Verifica o caminho diagonal
+            else if (dx == dy) {
+                int x = x0 + xCompare;
+                int y = y0 + yCompare;
+
+                while (x != x1 || y != y1) {
+                    if (tabuleiro.getPecabyPosicao(x, y) != null) {
+                        return false;
+                    }
+                    x += xCompare;
+                    y += yCompare;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }
