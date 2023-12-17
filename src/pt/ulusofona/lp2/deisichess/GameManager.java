@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class GameManager {
 
@@ -23,7 +22,8 @@ public class GameManager {
     public GameManager() {
     }
 
-    public void loadGame(File file) {
+    public boolean loadGame(File file) {
+        //throws InvalidGameInputException, IOException
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
             int numeroPecas = Integer.parseInt(br.readLine());
@@ -79,9 +79,9 @@ public class GameManager {
             getTabuleiro().setTabuleiro(pecaTabuleiro);
 
 
-            //return true;
+            return true;
         } catch (FileNotFoundException fileNotFoundException) {
-           // return false;
+            return false;
         }catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -302,17 +302,19 @@ public class GameManager {
         return null;
     }
 
-    public void saveGame(File file){
+    /*public void saveGame(File file) throws IOException {
 
     }
-
-    public void undo(){
+    public void undo() {
 
     }
+    public List<Comparable> getHints(int x, int y) {
 
-    public List<Comparable> getHints(int x, int y){
-        return null;
     }
+    public Map<String,String> customizeBoard() (*) {
+
+    }*/
+
 
 
 
