@@ -22,7 +22,7 @@ public class GameManager {
     public GameManager() {
     }
 
-    public boolean loadGame(File file) {
+    public void loadGame(File file)throws InvalidGameInputException  {
         //throws InvalidGameInputException, IOException
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
@@ -46,6 +46,8 @@ public class GameManager {
                     HashMap<Integer, Peca> pecasHM = getTabuleiro().getPecas();
                     pecasHM.put(id, peca);
                     getTabuleiro().setPecas(pecasHM);
+                }else{
+                    throw new InvalidGameInputException(i + 1, "DADOS" + (partes.length > 4 ? "A MAIS" : "A MENOS") + "(Esperava: 4 ; Obtive: " + partes.length + ")");
                 }
             }
 
@@ -78,14 +80,9 @@ public class GameManager {
             }
             getTabuleiro().setTabuleiro(pecaTabuleiro);
 
-
-            return true;
-        } catch (FileNotFoundException fileNotFoundException) {
-            return false;
         }catch (IOException e){
             throw new RuntimeException(e);
         }
-
     }
     public int getBoardSize() {return getTabuleiro().getDimensao();}
 
