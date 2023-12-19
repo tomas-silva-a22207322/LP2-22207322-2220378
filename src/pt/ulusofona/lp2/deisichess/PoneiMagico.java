@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.deisichess;
 
+import java.util.Objects;
+
 public class PoneiMagico extends Peca{
 
 
@@ -22,35 +24,41 @@ public class PoneiMagico extends Peca{
     }
 
     private boolean isPathValid(int x0, int y0, int x1, int y1, Tabuleiro tabuleiro, String direcao) {
-        
+
         int compareX = Integer.compare(x1, x0);
         int compareY = Integer.compare(y1, y0);
-        
+
         int x;
         int y;
-        
+
         if(Objects.equals(direcao, "eixoX eixoY")){
             x = x0 + compareX;
-            y = y0;
-            
-            while(x != x0){
-                if (tabuleiro.getPecabyPosicao(x, y) != null) {
-                    return false;
-                }
-                x += compareX;
+            y= y0;
+
+            if (tabuleiro.getPecabyPosicao(x, y) != null) {
+                return false;
             }
 
-            return tabuleiro.getPecabyPosicao(x, y+compareY) != null;
+            x += compareX;
+
+            if (tabuleiro.getPecabyPosicao(x, y) != null) {
+                return false;
+            }
+
+            return tabuleiro.getPecabyPosicao(x, y + compareY) != null;
         }
         if(Objects.equals(direcao, "eixoY eixoX")){
             x = x0;
-            y = y0 + compareY;
+            y= y0 + compareY;
 
-            while(y != y0){
-                if (tabuleiro.getPecabyPosicao(x, y) != null) {
-                    return false;
-                }
-                y += compareY;
+            if (tabuleiro.getPecabyPosicao(x, y) != null) {
+                return false;
+            }
+
+            y += compareY;
+
+            if (tabuleiro.getPecabyPosicao(x, y) != null) {
+                return false;
             }
 
             return tabuleiro.getPecabyPosicao(x + compareX, y) != null;
