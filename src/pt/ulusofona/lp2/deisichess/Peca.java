@@ -18,9 +18,6 @@ public abstract class Peca {
         this.capturado = true;
     }
 
-
-
-
     public abstract boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro);
 
     //GETTERS

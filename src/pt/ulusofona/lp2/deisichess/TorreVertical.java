@@ -9,6 +9,17 @@ public class TorreVertical extends Peca{
 
     @Override
     public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
-        return (x0 == x1);
+        if (x0 == x1){
+            int minY = Math.min(y0, y1);
+            int maxY = Math.max(y0, y1);
+
+            for (int y = minY + 1; y < maxY; y++) {
+                if (tabuleiro.getPecabyPosicao(x0, y) != null) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }
