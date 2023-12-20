@@ -41,7 +41,18 @@ public class GameManager {
                     int equipa = Integer.parseInt(partes[2]);
                     String nome = partes[3];
 
-                    Peca peca = new Peca(id, tipo, equipa, nome);
+                    Peca peca;
+                    switch (tipo) {
+                        case 0 -> peca = new Rei(id, tipo, equipa, nome);
+                        case 1 -> peca = new Rainha(id, tipo, equipa, nome);
+                        case 2 -> peca = new PoneiMagico(id, tipo, equipa, nome);
+                        case 3 -> peca = new PadreDaVila(id, tipo, equipa, nome);
+                        case 4 -> peca = new TorreHorizontal(id, tipo, equipa, nome);
+                        case 5 -> peca = new TorreVertical(id, tipo, equipa, nome);
+                        case 6 -> peca = new HomerSimpson(id, tipo, equipa, nome);
+                        case 7 -> peca = new Joker(id, tipo, equipa, nome);
+                        default -> throw new InvalidGameInputException(i + 1, "Tipo de peca invalido");
+                    }
 
                     HashMap<Integer, Peca> pecasHM = getTabuleiro().getPecas();
                     pecasHM.put(id, peca);
@@ -299,9 +310,10 @@ public class GameManager {
         return null;
     }
 
-    /*public void saveGame(File file) throws IOException {
+    public void saveGame(File file) throws IOException {
 
     }
+    /*
     public void undo() {
 
     }
