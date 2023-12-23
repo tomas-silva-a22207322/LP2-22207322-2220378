@@ -39,4 +39,13 @@ public class ComparableClass<T extends Comparable<T>> implements Comparable<Comp
     public int compareTo(ComparableClass move){
         return Integer.compare(move.pontuacao, getPontuacao());
     }
+
+    @Override
+    public String toString() {
+        return "ComparableClass{" +
+                "x=" + x +
+                ", y=" + y +
+                ", pontuacao=" + pontuacao +
+                '}';
+    }
 }

@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class GameManager {
     Tabuleiro tabuleiro;
@@ -338,7 +339,7 @@ public class GameManager {
     }
 
     public List<Comparable> getHints(int x, int y){
-        return new List();
+        return new ArrayList<>();
     }
     public JPanel getAuthorsPanel() {
         return null;
