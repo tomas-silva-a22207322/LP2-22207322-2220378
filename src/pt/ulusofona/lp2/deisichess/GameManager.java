@@ -124,7 +124,7 @@ public class GameManager {
         if (getTabuleiro().getPecabyPosicao(x0, y0).verificaPosicoes(x0, y0, x1, y1, getTabuleiro().getTurno(), getTabuleiro())) {
 
             if (peca1 != null) {
-
+                peca0.setPontuacaoCapturas(peca0.getPontuacaoCapturas() + peca1.getPontuacao());
                 peca1.setCapturado(true);
                 peca1.setX(-1);
                 peca1.setY(-1);
@@ -338,8 +338,7 @@ public class GameManager {
     }
 
     public List<Comparable> getHints(int x, int y){
-        List<Comparable> bruh = null;
-        return  bruh;
+        return new List();
     }
     public JPanel getAuthorsPanel() {
         return null;
