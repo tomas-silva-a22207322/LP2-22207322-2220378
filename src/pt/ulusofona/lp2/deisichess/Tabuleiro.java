@@ -6,7 +6,7 @@ public class Tabuleiro {
     Peca[][] campoJogo;
     int dimensao;
     HashMap<Integer, Peca> pecas = new HashMap<>();
-    int turno = 1;
+    int turno = 0;
 
     public Tabuleiro(int dimensao) {
         this.dimensao = dimensao;
@@ -17,21 +17,6 @@ public class Tabuleiro {
                 campoJogo[i][j] = null;
             }
         }
-    }
-
-    public boolean isValidMove(int x0, int y0, int x1, int y1) {
-        Peca pecaOrigem = getPecabyPosicao(x0, y0);
-        Peca pecaDestino = getPecabyPosicao(x1, y1);
-
-        if (pecaOrigem != null) {
-            if (pecaDestino != null && pecaOrigem.getEquipa() == pecaDestino.getEquipa()) {
-                return false; // Mesma equipa, movimento inválido
-            }
-
-            return pecaOrigem.isValidMove(x0, y0, x1, y1, getTurno(), ); // Validação de movimento da peça
-        }
-
-        return false; // Não há peça na posição de origem
     }
 
 
