@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.deisichess;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Tabuleiro {
 
@@ -17,6 +18,25 @@ public class Tabuleiro {
                 campoJogo[i][j] = null;
             }
         }
+    }
+
+    public Tabuleiro copy() {
+        Tabuleiro copiedTabuleiro = new Tabuleiro(this.dimensao);
+
+        // Copiar o estado do tabuleiro
+        copiedTabuleiro.setPecas(new HashMap<>());
+
+        for (Map.Entry<Integer, Peca> entry : this.pecas.entrySet()) {
+            int id = entry.getKey();
+            Peca originalPeca = entry.getValue();
+            Peca copiedPeca = originalPeca.copy();
+            copiedTabuleiro.getPecas().put(id, copiedPeca);
+        }
+
+        // Copiar outros campos relevantes
+        copiedTabuleiro.setTurno(this.turno);
+
+        return copiedTabuleiro;
     }
 
 

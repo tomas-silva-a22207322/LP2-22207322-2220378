@@ -19,6 +19,16 @@ public abstract class Peca {
         this.capturado = true;
     }
 
+    public Peca copy() {
+        try {
+            return (Peca) super.clone();
+        } catch (CloneNotSupportedException e) {
+            // Tratar a exceção ou relançá-la como uma exceção de tempo de execução
+            throw new RuntimeException("Clone not supported for class Peca", e);
+        }
+    }
+
+
     public boolean verificaPosicoes(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
         Peca pecaOrigem = tabuleiro.getPecabyPosicao(x0, y0);
         Peca pecaDestino = tabuleiro.getPecabyPosicao(x1, y1);
