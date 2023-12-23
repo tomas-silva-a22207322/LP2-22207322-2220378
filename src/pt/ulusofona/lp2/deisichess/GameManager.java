@@ -377,7 +377,7 @@ public class GameManager {
         return hints;
     }
 
-    }
+
     public JPanel getAuthorsPanel() {
         return null;
     }
