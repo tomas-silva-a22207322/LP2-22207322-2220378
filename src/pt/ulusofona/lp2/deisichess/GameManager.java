@@ -1,12 +1,8 @@
 package pt.ulusofona.lp2.deisichess;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class GameManager {
     Tabuleiro tabuleiro;
