@@ -264,13 +264,20 @@ public class GameManager {
         */
         int pecasEquipa0 = 0;
         int pecasEquipa1 = 0;
-
+        boolean temrei0 = false;
+        boolean temrei1 = false;
 
         for (Peca peca : getTabuleiro().getPecas().values()) {
             if (peca.getEquipa() == 10 && !peca.isCapturado()) {
                 pecasEquipa0++;
+                if (peca.getTipo() == 0) { // Verifica se a peça é um rei
+                    temrei0 = true;
+                }
             } else if (peca.getEquipa() == 20 && !peca.isCapturado()) {
                 pecasEquipa1++;
+                if (peca.getTipo() == 0) { // Verifica se a peça é um rei
+                    temrei1 = true;
+                }
             }
         }
 
@@ -284,7 +291,7 @@ public class GameManager {
             return true;
         }
 
-        if (pecasEquipa0 == 1 && pecasEquipa1 == 1) {
+        if (pecasEquipa0 == 1 && temrei0 && pecasEquipa1 == 1 && temrei1) {
             setResultado("EMPATE");
             return true;
         }
