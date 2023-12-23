@@ -42,10 +42,6 @@ public class ComparableClass<T extends Comparable<T>> implements Comparable<Comp
 
     @Override
     public String toString() {
-        return "ComparableClass{" +
-                "x=" + x +
-                ", y=" + y +
-                ", pontuacao=" + pontuacao +
-                '}';
+        return "("+ getX() +"," + getY() + ")~>" + getPontuacao();
     }
 }
