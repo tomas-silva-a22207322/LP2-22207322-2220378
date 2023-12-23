@@ -17,7 +17,7 @@ public class GameManager {
     int jogadasInvalidasBrancas = 0;
     int capturasPretas = 0;
     int capturasBrancas = 0;
-    int equipaAtual = 0;
+    int equipaAtual = 10;
     String resultado = "";
 
     public GameManager() {
@@ -63,7 +63,7 @@ public class GameManager {
                 }
             }
 
-            int[][] posicaoPecas = new int[dimensaoTabuleiro][dimensaoTabuleiro] ;
+            int[][] posicaoPecas = new int[dimensaoTabuleiro][dimensaoTabuleiro];
 
             for (int x = 0; x < dimensaoTabuleiro; x++){
                 String linha = br.readLine();
@@ -225,24 +225,12 @@ public class GameManager {
             int moveJoker = turno % 6;
 
             switch (moveJoker) {
-                case 0: // Rainha
-                    tipo += "/Rainha";
-                    break;
-                case 1: // Ponei Mágico
-                    tipo += "/Ponei Mágico";
-                    break;
-                case 2: // Padre da Vila
-                    tipo += "/Padre da Vila";
-                    break;
-                case 3: // Torre Horizontal
-                    tipo += "/Torre Horizontal";
-                    break;
-                case 4: // Torre Vertical
-                    tipo += "/Torre Vertical";
-                    break;
-                case 5: // Homer Simpson
-                    tipo += "/Homer Simpson";
-                    break;
+                case 0 -> tipo += "/Rainha";
+                case 1 -> tipo += "/Ponei Mágico";
+                case 2 -> tipo += "/Padre da Vila";
+                case 3 -> tipo += "/Torre Horizontal";
+                case 4 -> tipo += "/Torre Vertical";
+                case 5 -> tipo += "/Homer Simpson";
             }
 
         }
