@@ -359,7 +359,28 @@ public class GameManager {
     }
 
     public List<Comparable> getHints(int x, int y){
-        return new List();
+        List<Comparable> hints = new ArrayList<>();
+
+        Peca pecaSelecionada = getTabuleiro().getPecabyPosicao(x, y);
+
+        if (pecaSelecionada != null && !pecaSelecionada.isCapturado()) {
+            // Obtém todas as possíveis jogadas para a peça selecionada
+            for (int i = 0; i < getTabuleiro().getDimensao(); i++) {
+                for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
+
+                    if (pecaSelecionada.verificaPosicoes(x, y, i, j, getTabuleiro().getTurno(), getTabuleiro())) {
+                        ComparableClass novaJogada = new ComparableClass(i, j, getTabuleiro().getPecabyPosicao(x, y).getPontuacao());
+                        hints.add(novaJogada);
+                    }
+                }
+            }
+
+            Collections.sort(hints);
+        }
+
+        return hints;
+    }
+
     }
     public JPanel getAuthorsPanel() {
         return null;
