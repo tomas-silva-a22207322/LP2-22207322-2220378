@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class GameManager {
     Tabuleiro tabuleiro;
@@ -19,6 +20,8 @@ public class GameManager {
     int capturasBrancas = 0;
     int equipaAtual = 10;
     String resultado = "";
+
+    Stack<Tabuleiro> estadosAnteriores = new Stack<>();
 
     public GameManager() {
     }
@@ -99,6 +102,9 @@ public class GameManager {
     public int getBoardSize() {return getTabuleiro().getDimensao();}
 
     public boolean move(int x0, int y0, int x1, int y1) {
+
+        salvarEstadoAtual();
+
         Peca peca0 = getTabuleiro().getPecabyPosicao(x0,y0);
         Peca peca1 = getTabuleiro().getPecabyPosicao(x1,y1);
 
@@ -334,7 +340,15 @@ public class GameManager {
     }
 
     public void undo() {
+        if (!estadosAnteriores.isEmpty()) {
+            Tabuleiro estadoAnterior = estadosAnteriores.pop();
+            setTabuleiro(estadoAnterior);
+            // Outras atualizações necessárias após desfazer
+        }
+    }
 
+    private void salvarEstadoAtual() {
+        estadosAnteriores.push(getTabuleiro().copy());
     }
 
     public List<Comparable> getHints(int x, int y){
