@@ -9,6 +9,7 @@ public abstract class Peca {
     int y;
     boolean capturado;
     int pontuacao;
+    int pontuacaoCapturas = 0;
 
     public Peca(int id, int tipo, int equipa, String nome) {
         this.id = id;
@@ -28,6 +29,8 @@ public abstract class Peca {
     public int getX() {return x;}
     public int getY() {return y;}
     public boolean isCapturado() {return capturado;}
+    public int getPontuacao() {return pontuacao;}
+    public int getPontuacaoCapturas() {return pontuacaoCapturas;}
 
     //SETTERS
     public void setId(int id) {this.id = id;}
@@ -37,6 +40,5 @@ public abstract class Peca {
     public void setX(int x) {this.x = x;}
     public void setY(int y) {this.y = y;}
     public void setCapturado(boolean capturado) {this.capturado = capturado;}
-
-
+    public void setPontuacaoCapturas(int pontuacaoCapturas) {this.pontuacaoCapturas = pontuacaoCapturas;}
 }
