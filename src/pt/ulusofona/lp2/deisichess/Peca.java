@@ -18,6 +18,7 @@ public abstract class Peca {
         this.nome = nome;
         this.capturado = true;
     }
+
     public boolean verificaPosicoes(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
         Peca pecaOrigem = tabuleiro.getPecabyPosicao(x0, y0);
         Peca pecaDestino = tabuleiro.getPecabyPosicao(x1, y1);
@@ -30,6 +31,7 @@ public abstract class Peca {
         }
         return false; // Não há peça na posição de origem
     }
+
     public abstract boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro);
 
     //GETTERS
