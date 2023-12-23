@@ -3,8 +3,10 @@ package pt.ulusofona.lp2.deisichess;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.*;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 public class GameManager {
     Tabuleiro tabuleiro;
@@ -18,6 +20,8 @@ public class GameManager {
     int capturasBrancas = 0;
     int equipaAtual = 10;
     String resultado = "";
+
+    Stack<Tabuleiro> estadosAnteriores = new Stack<>();
 
     public GameManager() {
     }
@@ -98,6 +102,9 @@ public class GameManager {
     public int getBoardSize() {return getTabuleiro().getDimensao();}
 
     public boolean move(int x0, int y0, int x1, int y1) {
+
+        salvarEstadoAtual();
+
         Peca peca0 = getTabuleiro().getPecabyPosicao(x0,y0);
         Peca peca1 = getTabuleiro().getPecabyPosicao(x1,y1);
 
@@ -340,32 +347,20 @@ public class GameManager {
     }
 
     public void undo() {
+        if (!estadosAnteriores.isEmpty()) {
+            Tabuleiro estadoAnterior = estadosAnteriores.pop();
+            setTabuleiro(estadoAnterior);
+            // Outras atualizações necessárias após desfazer
+        }
+    }
 
+    private void salvarEstadoAtual() {
+        estadosAnteriores.push(getTabuleiro().copy());
     }
 
     public List<Comparable> getHints(int x, int y){
-        List<Comparable> hints = new ArrayList<>();
-
-        Peca pecaSelecionada = getTabuleiro().getPecabyPosicao(x, y);
-
-        if (pecaSelecionada != null && !pecaSelecionada.isCapturado()) {
-            // Obtém todas as possíveis jogadas para a peça selecionada
-            for (int i = 0; i < getTabuleiro().getDimensao(); i++) {
-                for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
-
-                    if (pecaSelecionada.verificaPosicoes(x, y, i, j, getTabuleiro().getTurno(), getTabuleiro())) {
-                        ComparableClass novaJogada = new ComparableClass(i, j, getTabuleiro().getPecabyPosicao(x, y).getPontuacao());
-                        hints.add(novaJogada);
-                    }
-                }
-            }
-
-            Collections.sort(hints);
-        }
-
-        return hints;
+        return new List();
     }
-
     public JPanel getAuthorsPanel() {
         return null;
     }
