@@ -121,7 +121,7 @@ public class GameManager {
             return false;
         }
 
-        if (getTabuleiro().isValidMove(x0, y0, x1, y1)) {
+        if (getTabuleiro().getPecabyPosicao(x0, y0).verificaPosicoes(x0, y0, x1, y1, getTabuleiro().getTurno(), getTabuleiro())) {
 
             if (peca1 != null) {
 
@@ -337,10 +337,10 @@ public class GameManager {
 
     }
 
-    public List<Comparable> getHints(int x, int y) {
-        return new List();
+    public List<Comparable> getHints(int x, int y){
+        List<Comparable> bruh = null;
+        return  bruh;
     }
-
     public JPanel getAuthorsPanel() {
         return null;
     }
