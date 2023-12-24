@@ -8,8 +8,10 @@ public abstract class Peca {
     int x;
     int y;
     boolean capturado;
+    int capturas = 0;
     int pontuacao;
     int pontuacaoCapturas = 0;
+    int movimentosInvalidos = 0;
 
     public Peca(int id, int tipo, int equipa, String nome) {
         this.id = id;
@@ -52,8 +54,10 @@ public abstract class Peca {
     public int getX() {return x;}
     public int getY() {return y;}
     public boolean isCapturado() {return capturado;}
+    public int getCapturas() {return capturas;}
     public int getPontuacao() {return pontuacao;}
     public int getPontuacaoCapturas() {return pontuacaoCapturas;}
+    public int getMovimentosInvalidos() {return movimentosInvalidos;}
 
     //SETTERS
     public void setId(int id) {this.id = id;}
@@ -63,5 +67,8 @@ public abstract class Peca {
     public void setX(int x) {this.x = x;}
     public void setY(int y) {this.y = y;}
     public void setCapturado(boolean capturado) {this.capturado = capturado;}
+    public void setCapturas(int capturas) {this.capturas = capturas;}
     public void setPontuacaoCapturas(int pontuacaoCapturas) {this.pontuacaoCapturas = pontuacaoCapturas;}
+    public void setMovimentosInvalidos(int movimentosInvalidos) {this.movimentosInvalidos = movimentosInvalidos;}
+
 }

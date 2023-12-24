@@ -127,6 +127,8 @@ public class GameManager {
 
             if (peca1 != null) {
                 peca0.setPontuacaoCapturas(peca0.getPontuacaoCapturas() + peca1.getPontuacao());
+                peca0.setCapturas(peca0.getCapturas() + 1);
+
                 peca1.setCapturado(true);
                 peca1.setX(-1);
                 peca1.setY(-1);
@@ -162,6 +164,8 @@ public class GameManager {
 
             return true;
         }
+
+        peca0.setMovimentosInvalidos(peca0.getMovimentosInvalidos() + 1);
 
         if(getEquipaAtual() == 10) {
             setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
