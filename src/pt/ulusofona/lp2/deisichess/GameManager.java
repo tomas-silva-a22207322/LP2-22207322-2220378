@@ -154,6 +154,8 @@ public class GameManager {
             peca0.setY(y1);
             getTabuleiro().setPecabyPosicao(x0, y0, null);
 
+            peca0.setJogadasValidas(peca0.getJogadasValidas() + 1);
+
             if(getEquipaAtual() == 10) {
                 setJogadasValidasPretas(getJogadasValidasPretas() + 1);
             } else {
@@ -165,7 +167,7 @@ public class GameManager {
             return true;
         }
 
-        peca0.setMovimentosInvalidos(peca0.getMovimentosInvalidos() + 1);
+        peca0.setJogadasInvalidas(peca0.getJogadasInvalidas() + 1);
 
         if(getEquipaAtual() == 10) {
             setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
