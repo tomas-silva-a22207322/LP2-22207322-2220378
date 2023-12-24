@@ -15,7 +15,7 @@ object StatisticsKt {
     }
 
     private fun top5Capturas(manager: GameManager): List<String> {
-        val pecasCapturadas = mutableMapOf<String, Pair<Int, Int>>() // Pair<Quantidade de Capturas, Equipe>
+        val pecasCapturadas = mutableMapOf<String, Pair<Int, Int>>() // Pair<Quantidade de Capturas, Equipa>
         val dimensao = manager.getTabuleiro().getDimensao()
 
         // Conta as capturas de cada peça no tabuleiro
@@ -26,7 +26,7 @@ object StatisticsKt {
                     val pecaNome = piece.getNome()
                     val pecaEquipa = piece.getEquipa()
                     val capturasAtuais = pecasCapturadas.getOrDefault(pecaNome, Pair(0, pecaEquipa))
-                    pecasCapturadas[pecaNome] = Pair(capturasAtuais.first + piece.getPontuacaoCapturas(), pecaEquipa)
+                    pecasCapturadas[pecaNome] = Pair(capturasAtuais.first + piece.getCapturas(), pecaEquipa)
                 }
             }
         }
@@ -53,7 +53,7 @@ object StatisticsKt {
     }
 
     private fun top5Pontos(manager: GameManager): List<String> {
-        val pecasPontos = mutableMapOf<String, Pair<Int, Int>>() // Pair<Pontuação, Equipe>
+        val pecasPontos = mutableMapOf<String, Pair<Int, Int>>() // Pair<Pontuação, Equipa>
         val dimensao = manager.getTabuleiro().getDimensao()
 
         // Conta os pontos de cada peça no tabuleiro
@@ -105,7 +105,7 @@ object StatisticsKt {
                 if (piece != null && !piece.isCapturado()) {
                     val pecaNome = piece.getNome()
                     val pecaEquipa = piece.getEquipa()
-                    val capturas = piece.getPontuacaoCapturas()
+                    val capturas = piece.getCapturas()
 
                     if (capturas > 5) {
                         val equipeString = if (pecaEquipa == 10) "PRETA" else "BRANCA"
