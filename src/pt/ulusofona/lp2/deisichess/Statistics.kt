@@ -22,6 +22,7 @@ object StatisticsKt {
         for (x in 0 until dimensao) {
             for (y in 0 until dimensao) {
                 val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
+
                 if (piece != null && !piece.isCapturado()) {
                     val pecaNome = piece.getNome()
                     val pecaEquipa = piece.getEquipa()
@@ -39,6 +40,7 @@ object StatisticsKt {
 
         for ((pecaNome, capturasEquipa) in sortedCaptures) {
             val (capturas, equipa) = capturasEquipa
+
             if (count < 5) {
                 val equipaString = if (equipa == 10) "(PRETA)" else "(BRANCA)"
                 val pieceString = "$pecaNome $equipaString fez $capturas capturas"
@@ -60,6 +62,7 @@ object StatisticsKt {
         for (x in 0 until dimensao) {
             for (y in 0 until dimensao) {
                 val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
+
                 if (piece != null && !piece.isCapturado()) {
                     val pecaNome = piece.getNome()
                     val pecaEquipa = piece.getEquipa()
@@ -80,6 +83,7 @@ object StatisticsKt {
 
         for ((pecaNome, pontosEquipa) in sortedPoints) {
             val (pontos, equipa) = pontosEquipa
+
             if (count < 5) {
                 val equipaString = if (equipa == 10) "(PRETA)" else "(BRANCA)"
                 val pieceString = "$pecaNome $equipaString tem $pontos pontos"
@@ -95,13 +99,13 @@ object StatisticsKt {
 
     private fun pecasMais5Capturas(manager: GameManager): List<String> {
         val resultado = mutableListOf<String>()
-
         val dimensao = manager.getTabuleiro().getDimensao()
 
         // Percorre o tabuleiro para identificar as peças com mais de 5 capturas
         for (x in 0 until dimensao) {
             for (y in 0 until dimensao) {
                 val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
+
                 if (piece != null && !piece.isCapturado()) {
                     val pecaNome = piece.getNome()
                     val pecaEquipa = piece.getEquipa()
@@ -120,8 +124,37 @@ object StatisticsKt {
     }
 
     private fun pecasMaisBaralhadas(manager: GameManager): List<String> {
+        val pecasInvalidas = mutableListOf<Peca>()
+        val dimensao = manager.getTabuleiro().getDimensao()
+        val resultado = mutableListOf<String>()
 
-        return emptyList()
+        // Percorre o tabuleiro para identificar peças com movimentos inválidos
+        for (x in 0 until dimensao) {
+            for (y in 0 until dimensao) {
+                val peca = manager.getTabuleiro().getPecabyPosicao(x, y)
+
+                if (peca != null && peca.getJogadasInvalidas() > 0) {
+                    pecasInvalidas.add(peca)
+                }
+            }
+        }
+
+        // Ordena as peças pelo número de jogadas inválidas (de maior para menor)
+        val sortedPecas = pecasInvalidas.sortedByDescending { peca -> peca.getJogadasInvalidas() }
+
+        // Encontra o maior número de jogadas inválidas entre as peças
+        val maiorNumeroInvalidas = sortedPecas.firstOrNull()?.getJogadasInvalidas() ?: 0
+
+        // Filtra as peças com o maior número de jogadas inválidas
+        val maisBaralhadas = sortedPecas.filter { peca -> peca.getJogadasInvalidas() == maiorNumeroInvalidas }
+
+        // Converte para a lista de strings no formato especificado
+        for (peca in maisBaralhadas) {
+            val infoPeca = "${peca.getEquipa()}:${peca.getNome()}:${peca.getJogadasInvalidas()}:${peca.getJogadasValidas()}"
+            resultado.add(infoPeca)
+        }
+
+        return resultado
     }
 
     private fun tiposCapturados(manager: GameManager): List<String> {
@@ -144,8 +177,10 @@ object StatisticsKt {
         for (x in 0 until dimensao) {
             for (y in 0 until dimensao) {
                 val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
+
                 if (piece != null && piece.isCapturado()) {
                     val tipoPeca = tipos[piece.getTipo()]
+
                     if (tipoPeca != null) {
                         tiposCapturados.add(tipoPeca)
                     }
