@@ -371,7 +371,7 @@ public class GameManager {
                 for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
 
                     if (pecaSelecionada.verificaPosicoes(x, y, i, j, getTabuleiro().getTurno(), getTabuleiro())) {
-                        ComparableClass novaJogada = new ComparableClass(i, j, getTabuleiro().getPecabyPosicao(x, y).getPontuacao());
+                        ComparableClass novaJogada = new ComparableClass(x, y, getTabuleiro().getPecabyPosicao(i, j).getPontuacao());
                         hints.add(novaJogada);
                     }
                 }
