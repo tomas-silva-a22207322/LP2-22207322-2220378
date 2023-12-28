@@ -15,179 +15,91 @@ object StatisticsKt {
     }
 
     private fun top5Capturas(manager: GameManager): List<String> {
-        val pecasCapturadas = mutableMapOf<String, Pair<Int, Int>>() // Pair<Quantidade de Capturas, Equipa>
-        val dimensao = manager.getTabuleiro().getDimensao()
+        val pecasCapturadas = manager.getTabuleiro().getPecas()
+            .filter { !it.value.isCapturado } // Filtrar peças não capturadas
+            .map { it.value } // Mapear para as peças
 
-        // Conta as capturas de cada peça no tabuleiro
-        for (x in 0 until dimensao) {
-            for (y in 0 until dimensao) {
-                val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
+        val capturasPorPeca = pecasCapturadas.groupBy(
+            keySelector = { it.nome }, // Agrupar por nome da peça
+            valueTransform = { it.capturas } // Transformar em uma lista de capturas
+        ).mapValues { it.value.sum() } // Somar as capturas por nome de peça
 
-                if (piece != null && !piece.isCapturado()) {
-                    val pecaNome = piece.getNome()
-                    val pecaEquipa = piece.getEquipa()
-                    val capturasAtuais = pecasCapturadas.getOrDefault(pecaNome, Pair(0, pecaEquipa))
-                    pecasCapturadas[pecaNome] = Pair(capturasAtuais.first + piece.getCapturas(), pecaEquipa)
-                }
-            }
+        val sortedCaptures = capturasPorPeca.toList().sortedByDescending { it.second } // Ordenar as capturas
+
+        val topPecas = sortedCaptures.take(5) // Pegar as 5 primeiras
+
+        return topPecas.map { (pecaNome, capturas) ->
+            val peca = manager.getTabuleiro().getPecas().values.find { it.nome == pecaNome }
+            val equipaString = if (peca?.equipa == 10) "(PRETA)" else "(BRANCA)"
+            "$pecaNome $equipaString fez $capturas capturas"
         }
-
-        // Ordena as capturas, em ordem decrescente
-        val sortedCaptures = pecasCapturadas.entries.sortedByDescending { it.value.first }
-
-        val topPecas = mutableListOf<String>()
-        var count = 0
-
-        for ((pecaNome, capturasEquipa) in sortedCaptures) {
-            val (capturas, equipa) = capturasEquipa
-
-            if (count < 5) {
-                val equipaString = if (equipa == 10) "(PRETA)" else "(BRANCA)"
-                val pieceString = "$pecaNome $equipaString fez $capturas capturas"
-                topPecas.add(pieceString)
-                count++
-            } else {
-                break
-            }
-        }
-
-        return topPecas
     }
 
     private fun top5Pontos(manager: GameManager): List<String> {
-        val pecasPontos = mutableMapOf<String, Pair<Int, Int>>() // Pair<Pontuação, Equipa>
         val dimensao = manager.getTabuleiro().getDimensao()
 
-        // Conta os pontos de cada peça no tabuleiro
-        for (x in 0 until dimensao) {
-            for (y in 0 until dimensao) {
-                val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
+        val pecasPontos = manager.getTabuleiro().getPecas()
+            .filter { !it.value.isCapturado }
+            .map { it.value }
+            .groupBy(
+                keySelector = { it.nome },
+                valueTransform = { it.getPontuacaoCapturas() }
+            )
+            .mapValues { it.value.sum() }
+            .toList()
+            .filter { it.second > 0 }
+            .sortedByDescending { it.second }
+            .take(5)
 
-                if (piece != null && !piece.isCapturado()) {
-                    val pecaNome = piece.getNome()
-                    val pecaEquipa = piece.getEquipa()
-                    val pontosAtuais = pecasPontos.getOrDefault(pecaNome, Pair(0, pecaEquipa))
-                    pecasPontos[pecaNome] = Pair(pontosAtuais.first + piece.getPontuacaoCapturas(), pecaEquipa)
-                }
-            }
+        return pecasPontos.map { (pecaNome, pontos) ->
+            val peca = manager.getTabuleiro().getPecas().values.find { it.nome == pecaNome }
+            val equipaString = if (peca?.equipa == 10) "(PRETA)" else "(BRANCA)"
+            "$pecaNome $equipaString tem $pontos pontos"
         }
-
-        // Retira as peças com 0 pontos, ou seja, 0 capturas
-        val filteredPieces = pecasPontos.filterValues { it.first > 0 }
-
-        // Ordena os pontos, em ordem decrescente
-        val sortedPoints = filteredPieces.entries.sortedWith(compareBy({ -it.value.first }, { it.key }))
-
-        val topPecas = mutableListOf<String>()
-        var count = 0
-
-        for ((pecaNome, pontosEquipa) in sortedPoints) {
-            val (pontos, equipa) = pontosEquipa
-
-            if (count < 5) {
-                val equipaString = if (equipa == 10) "(PRETA)" else "(BRANCA)"
-                val pieceString = "$pecaNome $equipaString tem $pontos pontos"
-                topPecas.add(pieceString)
-                count++
-            } else {
-                break
-            }
-        }
-
-        return topPecas
     }
-
     private fun pecasMais5Capturas(manager: GameManager): List<String> {
-        val resultado = mutableListOf<String>()
-        val dimensao = manager.getTabuleiro().getDimensao()
-
-        // Percorre o tabuleiro para identificar as peças com mais de 5 capturas
-        for (x in 0 until dimensao) {
-            for (y in 0 until dimensao) {
-                val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
-
-                if (piece != null && !piece.isCapturado()) {
-                    val pecaNome = piece.getNome()
-                    val pecaEquipa = piece.getEquipa()
-                    val capturas = piece.getCapturas()
-
-                    if (capturas > 5) {
-                        val equipeString = if (pecaEquipa == 10) "PRETA" else "BRANCA"
-                        val linha = "$equipeString: $pecaNome:$capturas"
-                        resultado.add(linha)
-                    }
-                }
+        return manager.getTabuleiro().getPecas()
+            .filter { !it.value.isCapturado }
+            .filter { it.value.getCapturas() > 5 }
+            .map { it.value }
+            .map { piece ->
+                val pecaNome = piece.getNome()
+                val pecaEquipa = if (piece.getEquipa() == 10) "PRETA" else "BRANCA"
+                val capturas = piece.getCapturas()
+                "$pecaEquipa: $pecaNome:$capturas"
             }
-        }
-
-        return resultado
     }
 
     private fun pecasMaisBaralhadas(manager: GameManager): List<String> {
-        val pecasInvalidas = mutableListOf<Peca>()
-        val dimensao = manager.getTabuleiro().getDimensao()
-        val resultado = mutableListOf<String>()
+        val pecasInvalidas = manager.getTabuleiro().getPecas()
+            .filter { it.value.getJogadasInvalidas() > 0 }
+            .map { it.value }
 
-        // Percorre o tabuleiro para identificar peças com movimentos inválidos
-        for (x in 0 until dimensao) {
-            for (y in 0 until dimensao) {
-                val peca = manager.getTabuleiro().getPecabyPosicao(x, y)
+        val maiorNumeroInvalidas = pecasInvalidas.maxByOrNull { it.getJogadasInvalidas() }?.getJogadasInvalidas() ?: 0
 
-                if (peca != null && peca.getJogadasInvalidas() > 0) {
-                    pecasInvalidas.add(peca)
-                }
-            }
+        val maisBaralhadas = pecasInvalidas.filter { it.getJogadasInvalidas() == maiorNumeroInvalidas }
+
+        return maisBaralhadas.map { peca ->
+            "${peca.getEquipa()}:${peca.getNome()}:${peca.getJogadasInvalidas()}:${peca.getJogadasValidas()}"
         }
-
-        // Ordena as peças pelo número de jogadas inválidas (de maior para menor)
-        val sortedPecas = pecasInvalidas.sortedByDescending { peca -> peca.getJogadasInvalidas() }
-
-        // Encontra o maior número de jogadas inválidas entre as peças
-        val maiorNumeroInvalidas = sortedPecas.firstOrNull()?.getJogadasInvalidas() ?: 0
-
-        // Filtra as peças com o maior número de jogadas inválidas
-        val maisBaralhadas = sortedPecas.filter { peca -> peca.getJogadasInvalidas() == maiorNumeroInvalidas }
-
-        // Converte para a lista de strings no formato especificado
-        for (peca in maisBaralhadas) {
-            val infoPeca = "${peca.getEquipa()}:${peca.getNome()}:${peca.getJogadasInvalidas()}:${peca.getJogadasValidas()}"
-            resultado.add(infoPeca)
-        }
-
-        return resultado
     }
 
     private fun tiposCapturados(manager: GameManager): List<String> {
         val tipos = mapOf(
-                0 to "Rei",
-                1 to "Rainha",
-                2 to "Pónei mágico",
-                3 to "Padre da vila",
-                4 to "Torre Horizontal",
-                5 to "Torre Vertical",
-                6 to "Homer Simpson",
-                7 to "Joker"
+            0 to "Rei",
+            1 to "Rainha",
+            2 to "Pónei mágico",
+            3 to "Padre da vila",
+            4 to "Torre Horizontal",
+            5 to "Torre Vertical",
+            6 to "Homer Simpson",
+            7 to "Joker"
         )
 
-        val tiposCapturados = mutableSetOf<String>()
+        val tiposCapturados = manager.getTabuleiro().getPecas()
+            .filter { it.value.isCapturado() }
+            .mapNotNull { tipos[it.value.getTipo()] }
 
-        val dimensao = manager.getTabuleiro().getDimensao()
-
-        // Percorre o tabuleiro para identificar os tipos das peças capturadas
-        for (x in 0 until dimensao) {
-            for (y in 0 until dimensao) {
-                val piece = manager.getTabuleiro().getPecabyPosicao(x, y)
-
-                if (piece != null && piece.isCapturado()) {
-                    val tipoPeca = tipos[piece.getTipo()]
-
-                    if (tipoPeca != null) {
-                        tiposCapturados.add(tipoPeca)
-                    }
-                }
-            }
-        }
-
-        return tiposCapturados.toList()
+        return tiposCapturados.distinct()
     }
 }
