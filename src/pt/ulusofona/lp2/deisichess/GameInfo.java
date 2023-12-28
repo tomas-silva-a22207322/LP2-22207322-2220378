@@ -10,7 +10,7 @@ public class GameInfo {
         estadosAnteriores = new ArrayList<>();
         estadoAtual = null;
     }
-
+//
     public ArrayList<Tabuleiro> getEstadosAnteriores() {
         return estadosAnteriores;
     }
