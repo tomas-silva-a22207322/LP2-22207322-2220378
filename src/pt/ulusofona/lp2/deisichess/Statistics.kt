@@ -159,14 +159,14 @@ object StatisticsKt {
 
     private fun tiposCapturados(manager: GameManager): List<String> {
         val tipos = mapOf(
-            0 to "Rei",
-            1 to "Rainha",
-            2 to "Pónei mágico",
-            3 to "Padre da vila",
-            4 to "Torre Horizontal",
-            5 to "Torre Vertical",
-            6 to "Homer Simpson",
-            7 to "Joker"
+                0 to "Rei",
+                1 to "Rainha",
+                2 to "Pónei mágico",
+                3 to "Padre da vila",
+                4 to "Torre Horizontal",
+                5 to "Torre Vertical",
+                6 to "Homer Simpson",
+                7 to "Joker"
         )
 
         val tiposCapturados = mutableSetOf<String>()

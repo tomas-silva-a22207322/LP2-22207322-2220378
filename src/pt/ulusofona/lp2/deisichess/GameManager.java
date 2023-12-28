@@ -352,7 +352,6 @@ public class GameManager {
         if (!estadosAnteriores.isEmpty()) {
             Tabuleiro estadoAnterior = estadosAnteriores.pop();
             setTabuleiro(estadoAnterior);
-            // Outras atualizações necessárias após desfazer
         }
     }
 
