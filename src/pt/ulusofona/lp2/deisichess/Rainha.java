@@ -9,6 +9,11 @@ public class Rainha extends Peca{
 
     @Override
     public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
+
+        if(tabuleiro.getPecabyPosicao(x1,y1).getTipo() == 1){
+            return false;
+        }
+
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
 
