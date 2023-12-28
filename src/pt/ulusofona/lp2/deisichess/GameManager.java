@@ -345,7 +345,34 @@ public class GameManager {
     }
 
     public void saveGame(File file) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            // Escrever a dimensão do tabuleiro
+            bw.write(getTabuleiro().getDimensao() + "\n");
 
+            // Escrever o número de peças
+            int numeroPecas = getTabuleiro().getPecas().size();
+            bw.write(numeroPecas + "\n");
+
+            // Escrever as informações de cada peça no tabuleiro
+            for (Peca peca : getTabuleiro().getPecas().values()) {
+                bw.write(peca.getId() + ":" + peca.getTipo() + ":" + peca.getEquipa() + ":" + peca.getNome() + "\n");
+            }
+
+            // Escrever a posição das peças no tabuleiro
+            Peca[][] tabuleiro = getTabuleiro().getCampoJogo();
+            for (Peca[] pecas : tabuleiro) {
+                for (int y = 0; y < pecas.length; y++) {
+                    if (pecas[y] != null) {
+                        bw.write(pecas[y].getId() + ":");
+                    } else {
+                        bw.write("0:");
+                    }
+                }
+                bw.write("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void undo() {
