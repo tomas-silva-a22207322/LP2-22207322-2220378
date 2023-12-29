@@ -1,10 +1,10 @@
 package pt.ulusofona.lp2.deisichess;
 
 public class HomerSimpson extends Peca{
-    int pontuacao = 2;
 
     public HomerSimpson(int id, int tipo, int equipa, String nome) {
         super(id, tipo, equipa, nome);
+        pontuacao = 2;
     }
 
     @Override

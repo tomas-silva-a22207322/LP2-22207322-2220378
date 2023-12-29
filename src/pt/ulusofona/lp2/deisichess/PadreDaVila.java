@@ -1,10 +1,9 @@
 package pt.ulusofona.lp2.deisichess;
 
 public class PadreDaVila extends Peca{
-    int pontuacao = 3;
-
     public PadreDaVila(int id, int tipo, int equipa, String nome) {
         super(id, tipo, equipa, nome);
+        pontuacao = 3;
     }
 
     @Override

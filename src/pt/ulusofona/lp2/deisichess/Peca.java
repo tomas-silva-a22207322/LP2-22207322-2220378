@@ -40,7 +40,7 @@ public abstract class Peca {
             if (pecaDestino != null && pecaOrigem.getEquipa() == pecaDestino.getEquipa()) {
                 return false; // Mesma equipa, movimento inválido
             }
-            pecaOrigem.isValidMove(x0, y0, x1, y1, turno, tabuleiro);
+            return pecaOrigem.isValidMove(x0, y0, x1, y1, turno, tabuleiro);
         }
         return false; // Não há peça na posição de origem
     }
