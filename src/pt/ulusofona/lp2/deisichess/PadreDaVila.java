@@ -15,20 +15,21 @@ public class PadreDaVila extends Peca{
             int xCompare = Integer.compare(x1, x0);
             int yCompare = Integer.compare(y1, y0);
 
-            x0 += xCompare;
-            y0 += yCompare;
+            int x = x0 + xCompare;
+            int y = y0 + yCompare;
 
-            for (int i = 1; i < dx; i++) {
-                int x = x0 + i * xCompare;
-                int y = y0 + i * yCompare;
-
+            while (x != x1 || y != y1) {
                 if (tabuleiro.getPecabyPosicao(x, y) != null) {
-                    return false;
+                    return false; // Verifica se há peças no caminho
                 }
+                x += xCompare;
+                y += yCompare;
             }
+
+            return true; // Retorna verdadeiro se o movimento for válido
         }
 
-        return true;
+        return false;
     }
 
     public String getTipoNome() {return "Padre da Vila";}
