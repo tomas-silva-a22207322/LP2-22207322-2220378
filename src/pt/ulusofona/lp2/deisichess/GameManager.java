@@ -163,6 +163,7 @@ public class GameManager {
             }
 
             setEquipaAtual((getEquipaAtual() == 10) ? 20 : 10);
+            getTabuleiro().setTurno(getTabuleiro().getTurno() + 1);
 
             return true;
         }
@@ -219,6 +220,7 @@ public class GameManager {
     }
 
     public String getPieceInfoAsString(int ID) {
+        //id | tipo | pontos | equipa | nome @ (x,y);
         Peca peca = getTabuleiro().getPecaById(ID);
         String info = "";
         int turno = getTabuleiro().getTurno();
@@ -228,7 +230,7 @@ public class GameManager {
         }
 
         String id = String.valueOf(peca.getId());
-        String tipo = String.valueOf(peca.getTipo());
+        String tipo = peca.getTipoNome();
         if (tipo.equals("Joker")) {
             int moveJoker = turno % 6;
 
@@ -244,11 +246,13 @@ public class GameManager {
         }
         String equipa = String.valueOf(peca.getEquipa());
         String nome = peca.getNome();
+        int pontosInt= peca.getPontuacao();
+        String pontos = pontosInt == 1000? "(infinito)": pontosInt+"";
         String coordenadas = "";
 
         if (peca.isCapturado()) {
             coordenadas = "(n/a)";
-            info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
+            info = id + " | " + tipo + " | " + pontos + " | " + equipa + " | " + nome + " @ " + coordenadas;
             return info;
         }
         if (tipo.equals("Homer Simpson")) {
@@ -258,7 +262,7 @@ public class GameManager {
         }
         coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
 
-        info = id + " | " + tipo + " | " + equipa + " | " + nome + " @ " + coordenadas;
+        info = id + " | " + tipo + " | " + pontos + " | " + equipa + " | " + nome + " @ " + coordenadas;
 
         return info;
     }
