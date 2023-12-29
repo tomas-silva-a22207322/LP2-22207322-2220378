@@ -10,7 +10,7 @@ public class Rainha extends Peca{
     @Override
     public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
 
-        if(tabuleiro.getPecabyPosicao(x1,y1).getTipo() == 1){
+        if(tabuleiro.getPecabyPosicao(x1,y1) != null && tabuleiro.getPecabyPosicao(x1,y1).getTipo() == 1){
             return false;
         }
 
