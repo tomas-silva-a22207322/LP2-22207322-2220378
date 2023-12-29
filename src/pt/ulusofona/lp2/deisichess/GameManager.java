@@ -22,7 +22,7 @@ public class GameManager {
     public GameManager() {
     }
 
-    public void loadGame(File file)throws InvalidGameInputException  {
+    public void loadGame(File file)throws InvalidGameInputException, IOException  {
         //throws InvalidGameInputException, IOException
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
