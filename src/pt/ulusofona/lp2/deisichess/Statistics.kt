@@ -7,7 +7,7 @@ object StatisticsKt {
         return when (type) {
             StatType.TOP_5_CAPTURAS -> ::top5Capturas
             StatType.TOP_5_PONTOS -> ::top5Pontos
-            StatType.PECAS_MAIS_5_CAPTURADAS -> ::pecasMais5Capturas
+            StatType.PECAS_MAIS_5_CAPTURAS -> ::pecasMais5Capturas
             StatType.PECAS_MAIS_BARALHADAS -> ::pecasMaisBaralhadas
             StatType.TIPOS_CAPTURADOS -> ::tiposCapturados
 
