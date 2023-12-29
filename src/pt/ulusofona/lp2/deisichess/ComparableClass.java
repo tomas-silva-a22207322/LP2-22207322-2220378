@@ -1,9 +1,9 @@
 package pt.ulusofona.lp2.deisichess;
 
 public class ComparableClass<T extends Comparable<T>> implements Comparable<ComparableClass<T>> {
-    int x;
-    int y;
-    int pontuacao;
+    private int x;
+    private int y;
+    private int pontuacao = 0;
 
     public ComparableClass(int x, int y, int pontuacao) {
         this.x = x;

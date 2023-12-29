@@ -396,12 +396,18 @@ public class GameManager {
         Peca pecaSelecionada = getTabuleiro().getPecabyPosicao(x, y);
 
         if (pecaSelecionada != null && !pecaSelecionada.isCapturado()) {
+            ComparableClass novaJogada;
             // Obtém todas as possíveis jogadas para a peça selecionada
             for (int i = 0; i < getTabuleiro().getDimensao(); i++) {
                 for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
 
-                    if (pecaSelecionada.verificaPosicoes(x, y, i, j, getTabuleiro().getTurno(), getTabuleiro())) {
-                        ComparableClass novaJogada = new ComparableClass(x, y, getTabuleiro().getPecabyPosicao(i, j).getPontuacao());
+                    if (pecaSelecionada.verificaPosicoes(x, y, j, i, getTabuleiro().getTurno(), getTabuleiro())) {
+                        if(getTabuleiro().getPecabyPosicao(j, i)!=null) {
+                            novaJogada = new ComparableClass(x, y, getTabuleiro().getPecabyPosicao(j, i).getPontuacao());
+
+                        }else{
+                            novaJogada = new ComparableClass(x, y, 0);
+                        }
                         hints.add(novaJogada);
                     }
                 }
