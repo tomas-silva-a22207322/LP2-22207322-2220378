@@ -12,10 +12,10 @@ public class PoneiMagico extends Peca {
 
     @Override
     public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
-        int dx = Math.abs(x1 - x0);
-        int dy = Math.abs(y1 - y0);
+        int dx = x1 - x0;
+        int dy = y1 - y0;
 
-        if (dx == dy && dx == 2) {
+        if (Math.abs(dx) == Math.abs(dy) && Math.abs(dx) == 2) {
 
             int midX = x0 + dx / 2;
             int midY = y0 + dy / 2;
