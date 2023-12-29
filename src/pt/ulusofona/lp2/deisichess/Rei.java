@@ -13,4 +13,7 @@ public class Rei extends Peca{
 
         return (dx <= 1 && dy <= 1);
     }
+
+    public String getTipoNome() {return "Rei";}
+
 }

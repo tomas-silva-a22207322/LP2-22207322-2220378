@@ -37,4 +37,5 @@ public class Joker extends Peca{
         }
     }
 
+    public String getTipoNome() {return "Joker";}
 }

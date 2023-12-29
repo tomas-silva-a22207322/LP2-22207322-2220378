@@ -30,4 +30,7 @@ public class PoneiMagico extends Peca {
         }
         return false;
     }
+
+    public String getTipoNome() {return "Ponei Mágico";}
+
 }

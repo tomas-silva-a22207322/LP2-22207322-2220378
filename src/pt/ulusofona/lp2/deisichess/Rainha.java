@@ -58,4 +58,7 @@ public class Rainha extends Peca{
 
         return false;
     }
+
+    public String getTipoNome() {return "Rainha";}
+
 }

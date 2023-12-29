@@ -31,4 +31,6 @@ public class PadreDaVila extends Peca{
 
         return true;
     }
+
+    public String getTipoNome() {return "Padre da Vila";}
 }

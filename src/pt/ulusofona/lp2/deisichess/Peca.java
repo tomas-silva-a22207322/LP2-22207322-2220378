@@ -60,6 +60,7 @@ public abstract class Peca {
     public int getPontuacaoCapturas() {return pontuacaoCapturas;}
     public int getJogadasInvalidas() {return jogadasInvalidas;}
     public int getJogadasValidas() {return jogadasValidas;}
+    public abstract String getTipoNome();
 
     //SETTERS
     public void setId(int id) {this.id = id;}

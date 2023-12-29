@@ -18,4 +18,6 @@ public class HomerSimpson extends Peca{
 
         return (dx == 1 && dy == 1); // Movimento em diagonal de uma casa
     }
+
+    public String getTipoNome() {return "Homer Simpson";}
 }

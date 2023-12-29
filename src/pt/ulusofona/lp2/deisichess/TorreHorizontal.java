@@ -22,4 +22,7 @@ public class TorreHorizontal extends Peca{
         }
         return false;
     }
+
+    public String getTipoNome() {return "TorreHor";}
+
 }
