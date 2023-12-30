@@ -12,6 +12,10 @@ public class TorreVertical extends Peca{
             int minY = Math.min(y0, y1);
             int maxY = Math.max(y0, y1);
 
+            if (minY < 0 || maxY >= tabuleiro.getDimensao()) {
+                return false;
+            }
+
             for (int y = minY + 1; y < maxY; y++) {
                 if (tabuleiro.getPecabyPosicao(x0, y) != null) {
                     return false;
