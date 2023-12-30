@@ -31,11 +31,13 @@ public class GameInfo {
     public ArrayList<Tabuleiro> getTabuleiros() {
         return tabuleiros;
     }
+    public Tabuleiro getTabuleiroInicial() {return tabuleiroInicial.copy();}
+    public ArrayList<String> getMovimentos() {return movimentos;}
+
     public void setTabuleiros(ArrayList<Tabuleiro> Tabuleiros) {this.tabuleiros = Tabuleiros;}
-    public Tabuleiro TabuleiroInicial() {
-        return tabuleiroInicial;
-    }
     public void setTabuleiroInicial(Tabuleiro TabuleiroInicial) {
         this.tabuleiroInicial = TabuleiroInicial;
     }
+
+    public void setMovimentos(ArrayList<String> movimentos) {this.movimentos = movimentos;}
 }
