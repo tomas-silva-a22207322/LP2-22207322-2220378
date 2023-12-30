@@ -36,7 +36,7 @@ public class Tabuleiro {
         copiedTabuleiro.setPecas(new HashMap<>());
         Peca[][] campoJogoNovo = new Peca[getDimensao()][getDimensao()];
 
-        for (Map.Entry<Integer, Peca> entry : this.pecas.entrySet()) {
+        for (Map.Entry<Integer, Peca> entry : this.getPecas().entrySet()) {
             int id = entry.getKey();
             Peca originalPeca = entry.getValue();
             Peca copiedPeca = originalPeca.copy();
@@ -51,6 +51,7 @@ public class Tabuleiro {
             }
         }
 
+        copiedTabuleiro.setCampoJogo(campoJogoNovo);
         copiedTabuleiro.setTurno(getTurno());
         copiedTabuleiro.setNumeroPecas(getNumeroPecas());
         copiedTabuleiro.setJogadasAposCaptura(getJogadasAposCaptura());
@@ -88,14 +89,13 @@ public class Tabuleiro {
     public int getEquipaAtual() {return equipaAtual;}
 
     //SETTERS
-    public void setTabuleiro(Peca[][] board){
+    public void setCampoJogo(Peca[][] board){
         this.campoJogo = board;
     }
     public void setPecabyPosicao(int x,int y,Peca peca){
         this.campoJogo[y][x] = peca;
     }
     public void setDimensao(int dimensao) {this.dimensao = dimensao;}
-    public void setCampoJogo(Peca[][] campoJogo) {this.campoJogo = campoJogo;}
     public void setPecas(HashMap<Integer, Peca> pecas) {this.pecas = pecas;}
     public void setTurno(int turno) {this.turno = turno;}
     public void setNumeroPecas(int numeroPecas) {this.numeroPecas = numeroPecas;}
