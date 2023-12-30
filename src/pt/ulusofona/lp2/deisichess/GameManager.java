@@ -265,7 +265,7 @@ public class GameManager {
         }
         if (tipo.equals("Homer Simpson")) {
             if (turno % 3 == 0) {
-                return info + "doh! zzzzzzz";
+                return info + "Doh! zzzzzzz";
             }
         }
         coordenadas = "(" + peca.getX() + ", " + peca.getY() + ")";
