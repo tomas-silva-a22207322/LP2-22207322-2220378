@@ -50,8 +50,17 @@ public class Tabuleiro {
                 }
             }
         }
-        // Copiar outros campos relevantes
-        copiedTabuleiro.setTurno(this.turno);
+
+        copiedTabuleiro.setTurno(getTurno());
+        copiedTabuleiro.setNumeroPecas(getNumeroPecas());
+        copiedTabuleiro.setJogadasAposCaptura(getJogadasAposCaptura());
+        copiedTabuleiro.setJogadasValidasPretas(getJogadasValidasPretas());
+        copiedTabuleiro.setJogadasValidasBrancas(getJogadasValidasBrancas());
+        copiedTabuleiro.setJogadasInvalidasPretas(getJogadasInvalidasPretas());
+        copiedTabuleiro.setJogadasInvalidasBrancas(getJogadasInvalidasBrancas());
+        copiedTabuleiro.setCapturasPretas(getCapturasPretas());
+        copiedTabuleiro.setCapturasBrancas(getCapturasBrancas());
+        copiedTabuleiro.setEquipaAtual(getEquipaAtual());
 
         return copiedTabuleiro;
     }
