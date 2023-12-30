@@ -25,6 +25,7 @@ public class Tabuleiro {
 
         // Copiar o estado do tabuleiro
         copiedTabuleiro.setPecas(new HashMap<>());
+        Peca[][] campoJogoNovo = new Peca[getDimensao()][getDimensao()];
 
         for (Map.Entry<Integer, Peca> entry : this.pecas.entrySet()) {
             int id = entry.getKey();
@@ -33,6 +34,13 @@ public class Tabuleiro {
             copiedTabuleiro.getPecas().put(id, copiedPeca);
         }
 
+        for(int i = 0; i < getDimensao(); i++){
+            for(int j = 0; j < getDimensao(); j++){
+                if(getCampoJogo() != null){
+                    campoJogoNovo[i][j] = copiedTabuleiro.getPecaById(getPecabyPosicao(i,j).getId());
+                }
+            }
+        }
         // Copiar outros campos relevantes
         copiedTabuleiro.setTurno(this.turno);
 
