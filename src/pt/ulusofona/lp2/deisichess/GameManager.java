@@ -6,6 +6,7 @@ import java.util.*;
 
 public class GameManager {
     Tabuleiro tabuleiro;
+    GameInfo gameInfo;
     String resultado = "";
 
     Stack<Tabuleiro> estadosAnteriores = new Stack<>();
@@ -58,9 +59,18 @@ public class GameManager {
             for (int x = 0; x < dimensaoTabuleiro; x++){
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
-                for (int y = 0; y<dimensaoTabuleiro; y++){
+                for (int y = 0; y < dimensaoTabuleiro; y++){
                     posicaoPecas[x][y] = Integer.parseInt(partes[y]);
                 }
+            }
+            String movimento = br.readLine();
+            while(movimento!=null){
+
+                String[] Coordenadas = movimento.split(";");
+                move(Integer.parseInt(Coordenadas[0]),Integer.parseInt(Coordenadas[1]),
+                        Integer.parseInt(Coordenadas[2]),Integer.parseInt(Coordenadas[3]));
+
+                movimento = br.readLine();
             }
             br.close();
 
@@ -89,8 +99,8 @@ public class GameManager {
     public int getBoardSize() {return getTabuleiro().getDimensao();}
 
     public boolean move(int x0, int y0, int x1, int y1) {
+        String movimento = x0+";"+y0+";"+x1+";"+y1;
 
-        salvarEstadoAtual();
 
         Peca peca0 = getTabuleiro().getPecabyPosicao(x0,y0);
         Peca peca1 = getTabuleiro().getPecabyPosicao(x1,y1);
@@ -101,6 +111,7 @@ public class GameManager {
             } else {
                 getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
             }
+            getGameInfo().addMove(movimento,getTabuleiro());
             return false;
         }
 
@@ -111,6 +122,7 @@ public class GameManager {
             } else {
                 getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
             }
+            getGameInfo().addMove(movimento,getTabuleiro());
             return false;
         }
 
@@ -156,6 +168,7 @@ public class GameManager {
             getTabuleiro().setEquipaAtual((getTabuleiro().getEquipaAtual() == 10) ? 20 : 10);
             getTabuleiro().setTurno(getTabuleiro().getTurno() + 1);
 
+            getGameInfo().addMove(movimento,getTabuleiro());
             return true;
         }
 
@@ -166,7 +179,7 @@ public class GameManager {
         } else {
             getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
         }
-
+        getGameInfo().addMove(movimento,getTabuleiro());
         return false;
     }
     public String[] getSquareInfo(int x, int y) {
@@ -377,9 +390,6 @@ public class GameManager {
         }
     }
 
-    private void salvarEstadoAtual() {
-        //estadosAnteriores.push(getTabuleiro().copy());
-    }
 
     public List<Comparable> getHints(int x, int y){
         List<Comparable> hints = new ArrayList<>();
@@ -419,6 +429,7 @@ public class GameManager {
     //GETTERS
     public Tabuleiro getTabuleiro() {return tabuleiro;}
     public java.lang.String getResultado() {return resultado;}
+    public GameInfo getGameInfo() {return gameInfo;}
 
     //SETTERS
     public void setTabuleiro(Tabuleiro tabuleiro) {this.tabuleiro = tabuleiro;}
