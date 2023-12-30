@@ -16,4 +16,16 @@ public class Rei extends Peca{
 
     public String getTipoNome() {return "Rei";}
 
+    @Override
+    public Peca copy() {
+        Peca peca =  new Rei(getId(),getTipo(),getEquipa(),getNome());
+        peca.setX(getX());
+        peca.setY(getY());
+        peca.setCapturado(isCapturado());
+        peca.setCapturas(getCapturas());
+        peca.setPontuacaoCapturas(getPontuacaoCapturas());
+        peca.setJogadasValidas(getJogadasValidas());
+        peca.setJogadasInvalidas(getJogadasInvalidas());
+        return peca;
+    }
 }

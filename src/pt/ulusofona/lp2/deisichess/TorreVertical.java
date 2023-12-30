@@ -24,4 +24,16 @@ public class TorreVertical extends Peca{
 
     public String getTipoNome() {return "TorreVert";}
 
+    @Override
+    public Peca copy() {
+        Peca peca =  new TorreVertical(getId(),getTipo(),getEquipa(),getNome());
+        peca.setX(getX());
+        peca.setY(getY());
+        peca.setCapturado(isCapturado());
+        peca.setCapturas(getCapturas());
+        peca.setPontuacaoCapturas(getPontuacaoCapturas());
+        peca.setJogadasValidas(getJogadasValidas());
+        peca.setJogadasInvalidas(getJogadasInvalidas());
+        return peca;
+    }
 }

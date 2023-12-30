@@ -33,4 +33,17 @@ public class PadreDaVila extends Peca{
     }
 
     public String getTipoNome() {return "Padre da Vila";}
+
+    @Override
+    public Peca copy() {
+        Peca peca =  new PadreDaVila(getId(),getTipo(),getEquipa(),getNome());
+        peca.setX(getX());
+        peca.setY(getY());
+        peca.setCapturado(isCapturado());
+        peca.setCapturas(getCapturas());
+        peca.setPontuacaoCapturas(getPontuacaoCapturas());
+        peca.setJogadasValidas(getJogadasValidas());
+        peca.setJogadasInvalidas(getJogadasInvalidas());
+        return peca;
+    }
 }

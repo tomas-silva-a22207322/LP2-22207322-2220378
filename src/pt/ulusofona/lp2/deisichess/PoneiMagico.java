@@ -32,6 +32,18 @@ public class PoneiMagico extends Peca {
         return false;
     }
 
+    @Override
+    public Peca copy() {
+        Peca peca =  new PoneiMagico(getId(),getTipo(),getEquipa(),getNome());
+        peca.setX(getX());
+        peca.setY(getY());
+        peca.setCapturado(isCapturado());
+        peca.setCapturas(getCapturas());
+        peca.setPontuacaoCapturas(getPontuacaoCapturas());
+        peca.setJogadasValidas(getJogadasValidas());
+        peca.setJogadasInvalidas(getJogadasInvalidas());
+        return peca;
+    }
     public String getTipoNome() {return "Ponei Mágico";}
 
 }

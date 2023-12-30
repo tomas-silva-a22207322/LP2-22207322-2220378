@@ -20,4 +20,17 @@ public class HomerSimpson extends Peca{
     }
 
     public String getTipoNome() {return "Homer Simpson";}
+
+    @Override
+    public Peca copy() {
+        Peca peca =  new HomerSimpson(getId(),getTipo(),getEquipa(),getNome());
+        peca.setX(getX());
+        peca.setY(getY());
+        peca.setCapturado(isCapturado());
+        peca.setCapturas(getCapturas());
+        peca.setPontuacaoCapturas(getPontuacaoCapturas());
+        peca.setJogadasValidas(getJogadasValidas());
+        peca.setJogadasInvalidas(getJogadasInvalidas());
+        return peca;
+    }
 }
