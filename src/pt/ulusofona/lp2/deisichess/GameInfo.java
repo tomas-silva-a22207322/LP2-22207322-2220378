@@ -15,10 +15,13 @@ public class GameInfo {
         movimentos = new ArrayList<>();
     }
     public Tabuleiro undo(){
-        this.tabuleiros.remove(tabuleiros.size() - 1);
-        this.movimentos.remove(movimentos.size() - 1);
-
-        return tabuleiros.get(tabuleiros.size() - 1).copy();
+        if(tabuleiros.size() > 1) {
+            this.tabuleiros.remove(tabuleiros.size() - 1);
+            this.movimentos.remove(movimentos.size() - 1);
+            return tabuleiros.get(tabuleiros.size() - 1).copy();
+        }else{
+            return tabuleiroInicial.copy();
+        }
     }
     public void addMove(String move, Tabuleiro tabuleiro) {
         this.tabuleiros.add(tabuleiro);
