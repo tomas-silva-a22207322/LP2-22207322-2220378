@@ -63,16 +63,7 @@ public class GameManager {
                     posicaoPecas[x][y] = Integer.parseInt(partes[y]);
                 }
             }
-            String movimento = br.readLine();
-            while(movimento!=null){
 
-                String[] Coordenadas = movimento.split(";");
-                move(Integer.parseInt(Coordenadas[0]),Integer.parseInt(Coordenadas[1]),
-                        Integer.parseInt(Coordenadas[2]),Integer.parseInt(Coordenadas[3]));
-
-                movimento = br.readLine();
-            }
-            br.close();
 
             Peca[][] pecaTabuleiro = new Peca[dimensaoTabuleiro][dimensaoTabuleiro];
 
@@ -90,7 +81,20 @@ public class GameManager {
                     }
                 }
             }
-            getTabuleiro().setTabuleiro(pecaTabuleiro);
+            getTabuleiro().setCampoJogo(pecaTabuleiro);
+
+            gameInfo = new GameInfo(getTabuleiro());
+
+            String movimento = br.readLine();
+            while(movimento!=null){
+
+                String[] Coordenadas = movimento.split(";");
+                move(Integer.parseInt(Coordenadas[0]),Integer.parseInt(Coordenadas[1]),
+                        Integer.parseInt(Coordenadas[2]),Integer.parseInt(Coordenadas[3]));
+
+                movimento = br.readLine();
+            }
+            br.close();
 
         }catch (IOException e){
             throw new RuntimeException(e);
@@ -168,7 +172,7 @@ public class GameManager {
             getTabuleiro().setEquipaAtual((getTabuleiro().getEquipaAtual() == 10) ? 20 : 10);
             getTabuleiro().setTurno(getTabuleiro().getTurno() + 1);
 
-            getGameInfo().addMove(movimento,getTabuleiro());
+            getGameInfo().addMove(movimento, getTabuleiro());
             return true;
         }
 
@@ -355,19 +359,20 @@ public class GameManager {
     public void saveGame(File file) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             // Escrever a dimensão do tabuleiro
-            bw.write(getTabuleiro().getDimensao() + "\n");
+            Tabuleiro tabuleiroinical = getGameInfo().getTabuleiroInicial();
+            bw.write(tabuleiroinical.getDimensao() + "\n");
 
             // Escrever o número de peças
-            int numeroPecas = getTabuleiro().getPecas().size();
+            int numeroPecas = tabuleiroinical.getPecas().size();
             bw.write(numeroPecas + "\n");
 
             // Escrever as informações de cada peça no tabuleiro
-            for (Peca peca : getTabuleiro().getPecas().values()) {
+            for (Peca peca : tabuleiroinical.getPecas().values()) {
                 bw.write(peca.getId() + ":" + peca.getTipo() + ":" + peca.getEquipa() + ":" + peca.getNome() + "\n");
             }
 
             // Escrever a posição das peças no tabuleiro
-            Peca[][] tabuleiro = getTabuleiro().getCampoJogo();
+            Peca[][] tabuleiro = tabuleiroinical.getCampoJogo();
             for (Peca[] pecas : tabuleiro) {
                 for (int y = 0; y < pecas.length; y++) {
                     if (pecas[y] != null) {
@@ -377,6 +382,10 @@ public class GameManager {
                     }
                 }
                 bw.write("\n");
+                for(int i = 0;i < gameInfo.getMovimentos().size();i++){
+                    bw.write(gameInfo.getMovimentos().get(i)+"\n");
+                }
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
