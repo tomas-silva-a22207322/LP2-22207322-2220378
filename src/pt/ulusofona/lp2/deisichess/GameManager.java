@@ -408,14 +408,18 @@ public class GameManager {
             for (int i = 0; i < getTabuleiro().getDimensao(); i++) {
                 for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
 
-                    if (pecaSelecionada.verificaPosicoes(x, y, j, i, getTabuleiro().getTurno(), getTabuleiro())) {
-                        if(getTabuleiro().getPecabyPosicao(j, i)!=null) {
-                            novaJogada = new ComparableClass(x, y, getTabuleiro().getPecabyPosicao(j, i).getPontuacao());
+                    if (i != y && j != x) {
 
-                        }else{
-                            novaJogada = new ComparableClass(x, y, 0);
+                        if (pecaSelecionada.verificaPosicoes(x, y, j, i, getTabuleiro().getTurno(), getTabuleiro())) {
+                            Peca pecaji = getTabuleiro().getPecabyPosicao(j, i);
+                            if (pecaji != null && pecaji.getEquipa() != getTabuleiro().getPecabyPosicao(x, y).getEquipa()) {
+                                novaJogada = new ComparableClass(j, i, pecaji.getPontuacao());
+
+                            } else {
+                                novaJogada = new ComparableClass(j, i, 0);
+                            }
+                            hints.add(novaJogada);
                         }
-                        hints.add(novaJogada);
                     }
                 }
             }
