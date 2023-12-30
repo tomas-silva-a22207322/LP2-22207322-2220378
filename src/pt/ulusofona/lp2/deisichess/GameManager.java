@@ -384,10 +384,7 @@ public class GameManager {
     }
 
     public void undo() {
-        if (!estadosAnteriores.isEmpty()) {
-            Tabuleiro estadoAnterior = estadosAnteriores.pop();
-            setTabuleiro(estadoAnterior);
-        }
+        setTabuleiro(getGameInfo().undo());
     }
 
 
