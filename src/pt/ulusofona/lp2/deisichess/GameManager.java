@@ -172,7 +172,7 @@ public class GameManager {
             getTabuleiro().setEquipaAtual((getTabuleiro().getEquipaAtual() == 10) ? 20 : 10);
             getTabuleiro().setTurno(getTabuleiro().getTurno() + 1);
 
-            getGameInfo().addMove(movimento, getTabuleiro());
+            getGameInfo().addMove(movimento, getTabuleiro().copy());
             return true;
         }
 

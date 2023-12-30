@@ -45,8 +45,8 @@ public class Tabuleiro {
 
         for(int i = 0; i < getDimensao(); i++){
             for(int j = 0; j < getDimensao(); j++){
-                if(getCampoJogo()[i][j] != null){
-                    campoJogoNovo[i][j] = copiedTabuleiro.getPecaById(getPecabyPosicao(i,j).getId());
+                if(getPecabyPosicao(i,j) != null){
+                    campoJogoNovo[j][i] = copiedTabuleiro.getPecaById(getPecabyPosicao(i,j).getId());
                 }
             }
         }
