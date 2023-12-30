@@ -22,6 +22,6 @@ public class TorreVertical extends Peca{
         return false;
     }
 
-    public String getTipoNome() {return "TorreVer";}
+    public String getTipoNome() {return "TorreVert";}
 
 }
