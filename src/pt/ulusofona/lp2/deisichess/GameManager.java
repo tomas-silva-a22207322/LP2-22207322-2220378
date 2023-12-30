@@ -6,15 +6,6 @@ import java.util.*;
 
 public class GameManager {
     Tabuleiro tabuleiro;
-    int numeroPecas;
-    int jogadasAposCaptura = -1;
-    int jogadasValidasPretas = 0;
-    int jogadasValidasBrancas = 0;
-    int jogadasInvalidasPretas = 0;
-    int jogadasInvalidasBrancas = 0;
-    int capturasPretas = 0;
-    int capturasBrancas = 0;
-    int equipaAtual = 10;
     String resultado = "";
 
     Stack<Tabuleiro> estadosAnteriores = new Stack<>();
@@ -105,20 +96,20 @@ public class GameManager {
         Peca peca1 = getTabuleiro().getPecabyPosicao(x1,y1);
 
         if (peca0 == null) {
-            if(getEquipaAtual() == 10) {
-                setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
+            if(getTabuleiro().getEquipaAtual() == 10) {
+                getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
             } else {
-                setJogadasInvalidasBrancas(getJogadasInvalidasBrancas() + 1);
+                getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
             }
             return false;
         }
 
-        if(peca0.getEquipa() != getEquipaAtual()) {
+        if(peca0.getEquipa() != getTabuleiro().getEquipaAtual()) {
 
-            if(getEquipaAtual() == 10) {
-                setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
+            if(getTabuleiro().getEquipaAtual() == 10) {
+                getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
             } else {
-                setJogadasInvalidasBrancas(getJogadasInvalidasBrancas() + 1);
+                getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
             }
             return false;
         }
@@ -133,18 +124,18 @@ public class GameManager {
                 peca1.setX(-1);
                 peca1.setY(-1);
 
-                if(getEquipaAtual() == 10) {
-                    setCapturasPretas(getCapturasPretas() + 1);
+                if(getTabuleiro().getEquipaAtual() == 10) {
+                    getTabuleiro().setCapturasPretas(getTabuleiro().getCapturasPretas() + 1);
                 } else {
-                    setCapturasBrancas(getCapturasBrancas() + 1);
+                    getTabuleiro().setCapturasBrancas(getTabuleiro().getCapturasBrancas() + 1);
                 }
 
-                setJogadasAposCaptura(0);
+                getTabuleiro().setJogadasAposCaptura(0);
             } else {
 
-                if (getCapturasBrancas() >= 1 || getCapturasPretas() >= 1) {
-                    if(getJogadasAposCaptura() >= 0) {
-                        setJogadasAposCaptura(getJogadasAposCaptura() + 1);
+                if (getTabuleiro().getCapturasBrancas() >= 1 || getTabuleiro().getCapturasPretas() >= 1) {
+                    if(getTabuleiro().getJogadasAposCaptura() >= 0) {
+                        getTabuleiro().setJogadasAposCaptura(getTabuleiro().getJogadasAposCaptura() + 1);
                     }
                 }
             }
@@ -156,13 +147,13 @@ public class GameManager {
 
             peca0.setJogadasValidas(peca0.getJogadasValidas() + 1);
 
-            if(getEquipaAtual() == 10) {
-                setJogadasValidasPretas(getJogadasValidasPretas() + 1);
+            if(getTabuleiro().getEquipaAtual() == 10) {
+                getTabuleiro().setJogadasValidasPretas(getTabuleiro().getJogadasValidasPretas() + 1);
             } else {
-                setJogadasValidasBrancas(getJogadasValidasBrancas() + 1);
+                getTabuleiro().setJogadasValidasBrancas(getTabuleiro().getJogadasValidasBrancas() + 1);
             }
 
-            setEquipaAtual((getEquipaAtual() == 10) ? 20 : 10);
+            getTabuleiro().setEquipaAtual((getTabuleiro().getEquipaAtual() == 10) ? 20 : 10);
             getTabuleiro().setTurno(getTabuleiro().getTurno() + 1);
 
             return true;
@@ -170,10 +161,10 @@ public class GameManager {
 
         peca0.setJogadasInvalidas(peca0.getJogadasInvalidas() + 1);
 
-        if(getEquipaAtual() == 10) {
-            setJogadasInvalidasPretas(getJogadasInvalidasPretas() + 1);
+        if(getTabuleiro().getEquipaAtual() == 10) {
+            getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
         } else {
-            setJogadasInvalidasBrancas(getJogadasInvalidasBrancas() + 1);
+            getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
         }
 
         return false;
@@ -266,7 +257,7 @@ public class GameManager {
 
         return info;
     }
-    public int getCurrentTeamID() {return getEquipaAtual();}
+    public int getCurrentTeamID() {return getTabuleiro().getEquipaAtual();}
 
     public boolean gameOver() {
         /*
@@ -309,7 +300,7 @@ public class GameManager {
             return true;
         }
 
-        if (getJogadasAposCaptura() >= 10) {
+        if (getTabuleiro().getJogadasAposCaptura() >= 10) {
             // Após 1 captura, se não houve outra captura após 10 jogadas, o jogo acaba, o resultado é empate
             setResultado("EMPATE");
             return true;
@@ -337,13 +328,13 @@ public class GameManager {
         results.add("Resultado: " + getResultado());
         results.add("---");
         results.add("Equipa das Pretas");
-        results.add(String.valueOf(getCapturasPretas()));
-        results.add(String.valueOf(getJogadasValidasPretas()));
-        results.add(String.valueOf(getJogadasInvalidasPretas()));
+        results.add(String.valueOf(getTabuleiro().getCapturasPretas()));
+        results.add(String.valueOf(getTabuleiro().getJogadasValidasPretas()));
+        results.add(String.valueOf(getTabuleiro().getJogadasInvalidasPretas()));
         results.add("Equipa das Brancas");
-        results.add(String.valueOf(getCapturasBrancas()));
-        results.add(String.valueOf(getJogadasValidasBrancas()));
-        results.add(String.valueOf(getJogadasInvalidasBrancas()));
+        results.add(String.valueOf(getTabuleiro().getCapturasBrancas()));
+        results.add(String.valueOf(getTabuleiro().getJogadasValidasBrancas()));
+        results.add(String.valueOf(getTabuleiro().getJogadasInvalidasBrancas()));
 
         return results;
     }
@@ -387,7 +378,7 @@ public class GameManager {
     }
 
     private void salvarEstadoAtual() {
-        estadosAnteriores.push(getTabuleiro().copy());
+        //estadosAnteriores.push(getTabuleiro().copy());
     }
 
     public List<Comparable> getHints(int x, int y){
@@ -427,27 +418,9 @@ public class GameManager {
 
     //GETTERS
     public Tabuleiro getTabuleiro() {return tabuleiro;}
-    public int getNumeroPecas() {return numeroPecas;}
-    public int getJogadasAposCaptura() {return jogadasAposCaptura;}
-    public int getJogadasValidasPretas() {return jogadasValidasPretas;}
-    public int getJogadasValidasBrancas() {return jogadasValidasBrancas;}
-    public int getJogadasInvalidasPretas() {return jogadasInvalidasPretas;}
-    public int getJogadasInvalidasBrancas() {return jogadasInvalidasBrancas;}
-    public int getCapturasPretas() {return capturasPretas;}
-    public int getCapturasBrancas() {return capturasBrancas;}
-    public int getEquipaAtual() {return equipaAtual;}
     public java.lang.String getResultado() {return resultado;}
 
     //SETTERS
     public void setTabuleiro(Tabuleiro tabuleiro) {this.tabuleiro = tabuleiro;}
-    public void setNumeroPecas(int numeroPecas) {this.numeroPecas = numeroPecas;}
-    public void setJogadasAposCaptura(int jogadasAposCaptura) {this.jogadasAposCaptura = jogadasAposCaptura;}
-    public void setJogadasValidasPretas(int jogadasValidasPretas) {this.jogadasValidasPretas = jogadasValidasPretas;}
-    public void setJogadasValidasBrancas(int jogadasValidasBrancas) {this.jogadasValidasBrancas = jogadasValidasBrancas;}
-    public void setJogadasInvalidasPretas(int jogadasInvalidasPretas) {this.jogadasInvalidasPretas = jogadasInvalidasPretas;}
-    public void setJogadasInvalidasBrancas(int jogadasInvalidasBrancas) {this.jogadasInvalidasBrancas = jogadasInvalidasBrancas;}
-    public void setCapturasPretas(int capturasPretas) {this.capturasPretas = capturasPretas;}
-    public void setCapturasBrancas(int capturasBrancas) {this.capturasBrancas = capturasBrancas;}
-    public void setEquipaAtual(int equipaAtual) {this.equipaAtual = equipaAtual;}
     public void setResultado(java.lang.String resultado) {this.resultado = resultado;}
 }
