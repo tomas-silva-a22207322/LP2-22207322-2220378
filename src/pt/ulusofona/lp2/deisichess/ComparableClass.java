@@ -42,6 +42,6 @@ public class ComparableClass<T extends Comparable<T>> implements Comparable<Comp
 
     @Override
     public String toString() {
-        return "("+ getX() +"," + getY() + ")~>" + getPontuacao();
+        return "("+ getX() +"," + getY() + ") -> " + getPontuacao();
     }
 }
