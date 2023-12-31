@@ -59,8 +59,10 @@ public class GameManager {
             for (int x = 0; x < dimensaoTabuleiro; x++) {
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
-                for (int y = 0; y < dimensaoTabuleiro; y++) {
-                    posicaoPecas[x][y] = Integer.parseInt(partes[y]);
+                if(partes.length == dimensaoTabuleiro-1) {
+                    for (int y = 0; y < dimensaoTabuleiro; y++) {
+                        posicaoPecas[x][y] = Integer.parseInt(partes[y]);
+                    }
                 }
             }
 
@@ -393,9 +395,6 @@ public class GameManager {
                     }
                 }
                 bw.write("\n");
-                for (int i = 0; i < gameInfo.getMovimentos().size(); i++) {
-                    bw.write(gameInfo.getMovimentos().get(i) + "\n");
-                }
 
             }
             for (int i = 0; i < gameInfo.getMovimentos().size(); i++) {
