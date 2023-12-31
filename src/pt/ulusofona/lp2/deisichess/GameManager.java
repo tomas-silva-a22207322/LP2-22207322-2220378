@@ -59,10 +59,8 @@ public class GameManager {
             for (int x = 0; x < dimensaoTabuleiro; x++) {
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
-                if(partes.length == dimensaoTabuleiro-1) {
-                    for (int y = 0; y < dimensaoTabuleiro; y++) {
-                        posicaoPecas[x][y] = Integer.parseInt(partes[y]);
-                    }
+                for (int y = 0; y < dimensaoTabuleiro; y++) {
+                    posicaoPecas[x][y] = Integer.parseInt(partes[y]);
                 }
             }
 
@@ -390,12 +388,11 @@ public class GameManager {
                     } else {
                         bw.write("0");
                     }
-                    if(y < pecas.length - 1){
+                    if (y < pecas.length - 1) {
                         bw.write(":");
                     }
                 }
                 bw.write("\n");
-
             }
             for (int i = 0; i < gameInfo.getMovimentos().size(); i++) {
                 bw.write(gameInfo.getMovimentos().get(i) + "\n");
@@ -425,9 +422,9 @@ public class GameManager {
                 for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
                     if (pecaSelecionada.verificaPosicoes(x, y, j, i, getTabuleiro().getTurno(), getTabuleiro())) {
                         Peca pecaji = getTabuleiro().getPecabyPosicao(j, i);
-                        if(pecaji !=null) {
+                        if (pecaji != null) {
                             hints.add(new ComparableClass(j, i, pecaji.getPontuacao()));
-                        }else {
+                        } else {
                             hints.add(new ComparableClass(j, i, 0));
                         }
                     }
