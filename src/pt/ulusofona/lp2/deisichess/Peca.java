@@ -28,10 +28,6 @@ public abstract class Peca {
         Peca pecaOrigem = tabuleiro.getPecabyPosicao(x0, y0);
         Peca pecaDestino = tabuleiro.getPecabyPosicao(x1, y1);
 
-        if (x1 < 0 || x1 >= tabuleiro.getDimensao() || y1 < 0 || y1 >= tabuleiro.getDimensao()){
-            return false;
-        }
-
         if (pecaOrigem != null) {
             if (pecaDestino != null && pecaOrigem.getEquipa() == pecaDestino.getEquipa()) {
                 return false; // Mesma equipa, movimento inválido
