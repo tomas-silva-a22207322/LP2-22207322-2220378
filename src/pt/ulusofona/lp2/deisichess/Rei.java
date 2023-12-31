@@ -11,7 +11,7 @@ public class Rei extends Peca{
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
 
-        return (dx <= 1 || dy <= 1);
+        return (dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 1 && dy == dx);
     }
 
     public String getTipoNome() {return "Rei";}
