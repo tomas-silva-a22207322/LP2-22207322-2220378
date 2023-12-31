@@ -402,6 +402,10 @@ public class GameManager {
 
         Peca pecaSelecionada = getTabuleiro().getPecabyPosicao(x, y);
 
+        if (pecaSelecionada == null || pecaSelecionada.isCapturado() || pecaSelecionada.getEquipa() != getTabuleiro().getEquipaAtual()) {
+            return hints;
+        }
+
         if (pecaSelecionada != null && !pecaSelecionada.isCapturado()) {
             ComparableClass novaJogada;
             // Obtém todas as possíveis jogadas para a peça selecionada
