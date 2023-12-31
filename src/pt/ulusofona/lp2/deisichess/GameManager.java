@@ -384,9 +384,12 @@ public class GameManager {
             for (Peca[] pecas : tabuleiro) {
                 for (int y = 0; y < pecas.length; y++) {
                     if (pecas[y] != null) {
-                        bw.write(pecas[y].getId() + ":");
+                        bw.write(pecas[y].getId() + "");
                     } else {
-                        bw.write("0:");
+                        bw.write("0");
+                    }
+                    if(y < pecas.length - 1){
+                        bw.write(":");
                     }
                 }
                 bw.write("\n");
@@ -394,6 +397,9 @@ public class GameManager {
                     bw.write(gameInfo.getMovimentos().get(i) + "\n");
                 }
 
+            }
+            for (int i = 0; i < gameInfo.getMovimentos().size(); i++) {
+                bw.write(gameInfo.getMovimentos().get(i) + "\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
