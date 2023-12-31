@@ -10,15 +10,19 @@ public class TorreHorizontal extends Peca{
 
     @Override
     public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
-        if (y0 == y1){
-            int minX = Math.min(x0, x1);
-            int maxX = Math.max(x0, x1);
+        int dy = y1 - y0;
+        int dx = Math.abs(x1 - x0);
+        int x = Integer.compare(x1, x0);
+        int xmid = x0;
 
-            for (int x = minX + 1; x < maxX; x++) {
-                if (tabuleiro.getPecabyPosicao(x, y0) != null) {
+        if (dy == 0 && dx < tabuleiro.getDimensao() && dx > 0){
+            do{
+                xmid += x;
+                if(tabuleiro.getPecabyPosicao(xmid,y1) != null){
                     return false;
                 }
-            }
+            }while(xmid != x1 - x);
+
             return true;
         }
         return false;
