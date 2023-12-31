@@ -108,6 +108,13 @@ public class GameManager {
     public boolean move(int x0, int y0, int x1, int y1) {
         String movimento = x0 + ";" + y0 + ";" + x1 + ";" + y1;
 
+        if (x0 < 0 || x0 >= tabuleiro.getDimensao() || y0 < 0 || y0 >= tabuleiro.getDimensao()){
+            return false;
+        }
+
+        if (x1 < 0 || x1 >= tabuleiro.getDimensao() || y1 < 0 || y1 >= tabuleiro.getDimensao()){
+            return false;
+        }
 
         Peca peca0 = getTabuleiro().getPecabyPosicao(x0, y0);
         Peca peca1 = getTabuleiro().getPecabyPosicao(x1, y1);
