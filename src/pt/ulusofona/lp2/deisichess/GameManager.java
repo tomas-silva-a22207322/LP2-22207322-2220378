@@ -344,12 +344,12 @@ public class GameManager {
         }
 
         if (!temRei10){
-            setResultado("VENCERAM AS PRETAS");
+            setResultado("VENCERAM AS BRANCAS");
             return true;
         }
 
         if (!temRei20){
-            setResultado("VENCERAM AS BRANCAS");
+            setResultado("VENCERAM AS PRETAS");
             return true;
         }
 
