@@ -297,37 +297,47 @@ public class GameManager {
         existe 1 rei em cada equipa (empate),
         após 1 captura caso não haja outra captura após 10 jogadas
         */
-        int pecasEquipa0 = 0;
-        int pecasEquipa1 = 0;
-        boolean temrei0 = false;
-        boolean temrei1 = false;
+        int pecasEquipa10 = 0;
+        int pecasEquipa20 = 0;
+        boolean temRei10 = false;
+        boolean temRei20 = false;
 
         for (Peca peca : getTabuleiro().getPecas().values()) {
             if (peca.getEquipa() == 10 && !peca.isCapturado()) {
-                pecasEquipa0++;
+                pecasEquipa10++;
                 if (peca.getTipo() == 0) { // Verifica se a peça é um rei
-                    temrei0 = true;
+                    temRei10 = true;
                 }
             } else if (peca.getEquipa() == 20 && !peca.isCapturado()) {
-                pecasEquipa1++;
+                pecasEquipa20++;
                 if (peca.getTipo() == 0) { // Verifica se a peça é um rei
-                    temrei1 = true;
+                    temRei20 = true;
                 }
             }
         }
 
-        if (pecasEquipa0 == 0) {
+        if (pecasEquipa10 == 0) {
             setResultado("VENCERAM AS BRANCAS");
             return true;
         }
 
-        if (pecasEquipa1 == 0) {
+        if (pecasEquipa20 == 0) {
             setResultado("VENCERAM AS PRETAS");
             return true;
         }
 
-        if (pecasEquipa0 == 1 && temrei0 && pecasEquipa1 == 1 && temrei1) {
+        if (pecasEquipa10 == 1 && temRei10 && pecasEquipa20 == 1 && temRei20) {
             setResultado("EMPATE");
+            return true;
+        }
+
+        if (!temRei10){
+            setResultado("VENCERAM AS PRETAS");
+            return true;
+        }
+
+        if (!temRei20){
+            setResultado("VENCERAM AS BRANCAS");
             return true;
         }
 
