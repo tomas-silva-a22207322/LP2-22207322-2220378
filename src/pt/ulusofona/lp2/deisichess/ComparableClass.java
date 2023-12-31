@@ -37,7 +37,7 @@ public class ComparableClass<T extends Comparable<T>> implements Comparable<Comp
 
     @Override
     public int compareTo(ComparableClass move){
-        return Integer.compare(move.pontuacao, getPontuacao());
+        return Integer.compare(move.getPontuacao(), getPontuacao());
     }
 
     @Override

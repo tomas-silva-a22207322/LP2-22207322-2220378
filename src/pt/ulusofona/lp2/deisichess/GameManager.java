@@ -14,7 +14,7 @@ public class GameManager {
     public GameManager() {
     }
 
-    public void loadGame(File file)throws InvalidGameInputException, IOException  {
+    public void loadGame(File file) throws InvalidGameInputException, IOException {
         //throws InvalidGameInputException, IOException
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int dimensaoTabuleiro = Integer.parseInt(br.readLine());
@@ -27,7 +27,7 @@ public class GameManager {
             for (int i = 0; i < numeroPecas; i++) {
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
-                if(partes.length == 4){
+                if (partes.length == 4) {
                     int id = Integer.parseInt(partes[0]);
                     int tipo = Integer.parseInt(partes[1]);
                     int equipa = Integer.parseInt(partes[2]);
@@ -49,17 +49,17 @@ public class GameManager {
                     HashMap<Integer, Peca> pecasHM = getTabuleiro().getPecas();
                     pecasHM.put(id, peca);
                     getTabuleiro().setPecas(pecasHM);
-                }else{
+                } else {
                     throw new InvalidGameInputException(i + 1, "DADOS" + (partes.length > 4 ? "A MAIS" : "A MENOS") + "(Esperava: 4 ; Obtive: " + partes.length + ")");
                 }
             }
 
             int[][] posicaoPecas = new int[dimensaoTabuleiro][dimensaoTabuleiro];
 
-            for (int x = 0; x < dimensaoTabuleiro; x++){
+            for (int x = 0; x < dimensaoTabuleiro; x++) {
                 String linha = br.readLine();
                 String[] partes = linha.split(":");
-                for (int y = 0; y < dimensaoTabuleiro; y++){
+                for (int y = 0; y < dimensaoTabuleiro; y++) {
                     posicaoPecas[x][y] = Integer.parseInt(partes[y]);
                 }
             }
@@ -86,47 +86,50 @@ public class GameManager {
             gameInfo = new GameInfo(getTabuleiro());
 
             String movimento = br.readLine();
-            while(movimento!=null){
+            while (movimento != null) {
 
                 String[] Coordenadas = movimento.split(";");
-                move(Integer.parseInt(Coordenadas[0]),Integer.parseInt(Coordenadas[1]),
-                        Integer.parseInt(Coordenadas[2]),Integer.parseInt(Coordenadas[3]));
+                move(Integer.parseInt(Coordenadas[0]), Integer.parseInt(Coordenadas[1]),
+                        Integer.parseInt(Coordenadas[2]), Integer.parseInt(Coordenadas[3]));
 
                 movimento = br.readLine();
             }
             br.close();
 
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public int getBoardSize() {return getTabuleiro().getDimensao();}
+
+    public int getBoardSize() {
+        return getTabuleiro().getDimensao();
+    }
 
     public boolean move(int x0, int y0, int x1, int y1) {
-        String movimento = x0+";"+y0+";"+x1+";"+y1;
+        String movimento = x0 + ";" + y0 + ";" + x1 + ";" + y1;
 
 
-        Peca peca0 = getTabuleiro().getPecabyPosicao(x0,y0);
-        Peca peca1 = getTabuleiro().getPecabyPosicao(x1,y1);
+        Peca peca0 = getTabuleiro().getPecabyPosicao(x0, y0);
+        Peca peca1 = getTabuleiro().getPecabyPosicao(x1, y1);
 
         if (peca0 == null) {
-            if(getTabuleiro().getEquipaAtual() == 10) {
+            if (getTabuleiro().getEquipaAtual() == 10) {
                 getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
             } else {
                 getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
             }
-            getGameInfo().addMove(movimento,getTabuleiro());
+            getGameInfo().addMove(movimento, getTabuleiro());
             return false;
         }
 
-        if(peca0.getEquipa() != getTabuleiro().getEquipaAtual()) {
+        if (peca0.getEquipa() != getTabuleiro().getEquipaAtual()) {
 
-            if(getTabuleiro().getEquipaAtual() == 10) {
+            if (getTabuleiro().getEquipaAtual() == 10) {
                 getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
             } else {
                 getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
             }
-            getGameInfo().addMove(movimento,getTabuleiro());
+            getGameInfo().addMove(movimento, getTabuleiro());
             return false;
         }
 
@@ -140,7 +143,7 @@ public class GameManager {
                 peca1.setX(-1);
                 peca1.setY(-1);
 
-                if(getTabuleiro().getEquipaAtual() == 10) {
+                if (getTabuleiro().getEquipaAtual() == 10) {
                     getTabuleiro().setCapturasPretas(getTabuleiro().getCapturasPretas() + 1);
                 } else {
                     getTabuleiro().setCapturasBrancas(getTabuleiro().getCapturasBrancas() + 1);
@@ -150,7 +153,7 @@ public class GameManager {
             } else {
 
                 if (getTabuleiro().getCapturasBrancas() >= 1 || getTabuleiro().getCapturasPretas() >= 1) {
-                    if(getTabuleiro().getJogadasAposCaptura() >= 0) {
+                    if (getTabuleiro().getJogadasAposCaptura() >= 0) {
                         getTabuleiro().setJogadasAposCaptura(getTabuleiro().getJogadasAposCaptura() + 1);
                     }
                 }
@@ -163,7 +166,7 @@ public class GameManager {
 
             peca0.setJogadasValidas(peca0.getJogadasValidas() + 1);
 
-            if(getTabuleiro().getEquipaAtual() == 10) {
+            if (getTabuleiro().getEquipaAtual() == 10) {
                 getTabuleiro().setJogadasValidasPretas(getTabuleiro().getJogadasValidasPretas() + 1);
             } else {
                 getTabuleiro().setJogadasValidasBrancas(getTabuleiro().getJogadasValidasBrancas() + 1);
@@ -178,14 +181,15 @@ public class GameManager {
 
         peca0.setJogadasInvalidas(peca0.getJogadasInvalidas() + 1);
 
-        if(getTabuleiro().getEquipaAtual() == 10) {
+        if (getTabuleiro().getEquipaAtual() == 10) {
             getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
         } else {
             getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
         }
-        getGameInfo().addMove(movimento,getTabuleiro());
+        getGameInfo().addMove(movimento, getTabuleiro());
         return false;
     }
+
     public String[] getSquareInfo(int x, int y) {
         //id | tipo | equipa | alcunha | png(null)
         if (x < 0 || x > getTabuleiro().getDimensao() || y < 0 || y > getTabuleiro().getDimensao()) {
@@ -218,11 +222,11 @@ public class GameManager {
         String nome = peca.getNome();
         String[] infoArray;
 
-        if(peca.isCapturado()){
-            infoArray = new String[]{id, tipo, equipa, nome, "capturado","",""};
+        if (peca.isCapturado()) {
+            infoArray = new String[]{id, tipo, equipa, nome, "capturado", "", ""};
             return infoArray;
         }
-        infoArray = new String[]{id, tipo, equipa, nome,"em jogo", String.valueOf(peca.getX()), String.valueOf(peca.getY())};
+        infoArray = new String[]{id, tipo, equipa, nome, "em jogo", String.valueOf(peca.getX()), String.valueOf(peca.getY())};
 
         return infoArray;
     }
@@ -254,8 +258,8 @@ public class GameManager {
         }
         String equipa = String.valueOf(peca.getEquipa());
         String nome = peca.getNome();
-        int pontosInt= peca.getPontuacao();
-        String pontos = pontosInt == 1000? "(infinito)": pontosInt+"";
+        int pontosInt = peca.getPontuacao();
+        String pontos = pontosInt == 1000 ? "(infinito)" : pontosInt + "";
         String coordenadas = "";
 
         if (peca.isCapturado()) {
@@ -274,7 +278,10 @@ public class GameManager {
 
         return info;
     }
-    public int getCurrentTeamID() {return getTabuleiro().getEquipaAtual();}
+
+    public int getCurrentTeamID() {
+        return getTabuleiro().getEquipaAtual();
+    }
 
     public boolean gameOver() {
         /*
@@ -325,6 +332,7 @@ public class GameManager {
 
         return false;
     }
+
     public ArrayList<String> getGameResults() {
         /*
         JOGO DE CRAZY CHESS
@@ -382,8 +390,8 @@ public class GameManager {
                     }
                 }
                 bw.write("\n");
-                for(int i = 0;i < gameInfo.getMovimentos().size();i++){
-                    bw.write(gameInfo.getMovimentos().get(i)+"\n");
+                for (int i = 0; i < gameInfo.getMovimentos().size(); i++) {
+                    bw.write(gameInfo.getMovimentos().get(i) + "\n");
                 }
 
             }
@@ -397,7 +405,7 @@ public class GameManager {
     }
 
 
-    public List<Comparable> getHints(int x, int y){
+    public List<Comparable> getHints(int x, int y) {
         List<Comparable> hints = new ArrayList<>();
 
         Peca pecaSelecionada = getTabuleiro().getPecabyPosicao(x, y);
@@ -407,22 +415,15 @@ public class GameManager {
         }
 
         if (pecaSelecionada != null && !pecaSelecionada.isCapturado()) {
-            ComparableClass novaJogada;
             // Obtém todas as possíveis jogadas para a peça selecionada
             for (int i = 0; i < getTabuleiro().getDimensao(); i++) {
                 for (int j = 0; j < getTabuleiro().getDimensao(); j++) {
-
-                    if (i != y && j != x) {
-
-                        if (pecaSelecionada.verificaPosicoes(x, y, j, i, getTabuleiro().getTurno(), getTabuleiro())) {
-                            Peca pecaji = getTabuleiro().getPecabyPosicao(j, i);
-                            if (pecaji != null && pecaji.getEquipa() != getTabuleiro().getPecabyPosicao(x, y).getEquipa()) {
-                                novaJogada = new ComparableClass(j, i, pecaji.getPontuacao());
-
-                            } else {
-                                novaJogada = new ComparableClass(j, i, 0);
-                            }
-                            hints.add(novaJogada);
+                    if (pecaSelecionada.verificaPosicoes(x, y, j, i, getTabuleiro().getTurno(), getTabuleiro())) {
+                        Peca pecaji = getTabuleiro().getPecabyPosicao(j, i);
+                        if(pecaji !=null) {
+                            hints.add(new ComparableClass(j, i, pecaji.getPontuacao()));
+                        }else {
+                            hints.add(new ComparableClass(j, i, 0));
                         }
                     }
                 }
@@ -438,14 +439,30 @@ public class GameManager {
     public JPanel getAuthorsPanel() {
         return null;
     }
-    public Map<String,String> customizeBoard(){return new HashMap<>();}
+
+    public Map<String, String> customizeBoard() {
+        return new HashMap<>();
+    }
 
     //GETTERS
-    public Tabuleiro getTabuleiro() {return tabuleiro;}
-    public java.lang.String getResultado() {return resultado;}
-    public GameInfo getGameInfo() {return gameInfo;}
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
+
+    public java.lang.String getResultado() {
+        return resultado;
+    }
+
+    public GameInfo getGameInfo() {
+        return gameInfo;
+    }
 
     //SETTERS
-    public void setTabuleiro(Tabuleiro tabuleiro) {this.tabuleiro = tabuleiro;}
-    public void setResultado(java.lang.String resultado) {this.resultado = resultado;}
+    public void setTabuleiro(Tabuleiro tabuleiro) {
+        this.tabuleiro = tabuleiro;
+    }
+
+    public void setResultado(java.lang.String resultado) {
+        this.resultado = resultado;
+    }
 }
