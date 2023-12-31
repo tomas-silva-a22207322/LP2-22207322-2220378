@@ -109,10 +109,22 @@ public class GameManager {
         String movimento = x0 + ";" + y0 + ";" + x1 + ";" + y1;
 
         if (x0 < 0 || x0 >= tabuleiro.getDimensao() || y0 < 0 || y0 >= tabuleiro.getDimensao()){
+            if (getTabuleiro().getEquipaAtual() == 10) {
+                getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
+            } else {
+                getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
+            }
+            getGameInfo().addMove(movimento, getTabuleiro());
             return false;
         }
 
         if (x1 < 0 || x1 >= tabuleiro.getDimensao() || y1 < 0 || y1 >= tabuleiro.getDimensao()){
+            if (getTabuleiro().getEquipaAtual() == 10) {
+                getTabuleiro().setJogadasInvalidasPretas(getTabuleiro().getJogadasInvalidasPretas() + 1);
+            } else {
+                getTabuleiro().setJogadasInvalidasBrancas(getTabuleiro().getJogadasInvalidasBrancas() + 1);
+            }
+            getGameInfo().addMove(movimento, getTabuleiro());
             return false;
         }
 
