@@ -269,8 +269,8 @@ public class GameManager {
                 case 0 -> tipo += "/Rainha";
                 case 1 -> tipo += "/Ponei Mágico";
                 case 2 -> tipo += "/Padre da Vila";
-                case 3 -> tipo += "/Torre Horizontal";
-                case 4 -> tipo += "/Torre Vertical";
+                case 3 -> tipo += "/TorreHor";
+                case 4 -> tipo += "/TorreVert";
                 case 5 -> tipo += "/Homer Simpson";
             }
 
