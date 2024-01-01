@@ -1,5 +1,4 @@
 package pt.ulusofona.lp2.deisichess;
-
 public class Rainha extends Peca{
 
     public Rainha(int id, int tipo, int equipa, String nome) {
@@ -11,6 +10,10 @@ public class Rainha extends Peca{
     public boolean isValidMove(int x0, int y0, int x1, int y1, int turno, Tabuleiro tabuleiro) {
 
         if(tabuleiro.getPecabyPosicao(x1,y1) != null && tabuleiro.getPecabyPosicao(x1,y1).getTipo() == 1){
+            return false;
+        }
+
+        if (tabuleiro.getPecabyPosicao(x1,y1) != null && tabuleiro.getPecabyPosicao(x1,y1).getTipo() == 7 && tabuleiro.getTurno() % 6 == 0 ){
             return false;
         }
 
