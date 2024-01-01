@@ -7,7 +7,7 @@ public class PoneiMagico extends Peca {
 
     public PoneiMagico(int id, int tipo, int equipa, String nome) {
         super(id, tipo, equipa, nome);
-        pontuacao = 2;
+        pontuacao = 5;
     }
 
     @Override
