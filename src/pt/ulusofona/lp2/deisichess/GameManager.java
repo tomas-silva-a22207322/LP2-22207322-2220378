@@ -232,7 +232,7 @@ public class GameManager {
             case 5 -> foto = (peca.getEquipa() == 20) ? "torreVerBranca.png" : "torreVerPreta.png";
             case 6 -> foto = (peca.getEquipa() == 20) ? "homerBranco.png" : "homerPreto.png";
             case 7 -> foto = (peca.getEquipa() == 20) ? "jokerBranco.png" : "jokerPreto.png";
-            case 8 -> foto = (peca.getEquipa() == 20) ? "jesusPreto.png" : "jesusBranco.png";
+            case 8 -> foto = (peca.getEquipa() == 20) ? "jesusBranco.png" : "jesusPreto.png";
             default -> foto = (peca.getEquipa() == 20) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
         }
 
