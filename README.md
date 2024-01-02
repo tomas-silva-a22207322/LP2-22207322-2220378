@@ -5,4 +5,5 @@
 
 Peça criativa:
 Para a peça criativa criámos Jesus que consegue mover como uma cruz, ou seja movimenta-se diretamente à esquerda, à direita ou acima, ou 2 abaixo.
+Quando esta peça move-se duas casas para baixo ela pode andar mesmo que exista peças pelo caminho.
 Esta peça não consegue capturar o Padre da Vila.
