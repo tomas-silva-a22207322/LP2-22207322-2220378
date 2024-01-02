@@ -221,7 +221,12 @@ public class GameManager {
         if (peca == null) {
             return new String[]{};
         }
-        String foto = (peca.getEquipa() == 10) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
+        String foto = "";
+        if (peca.getTipo() == 8){
+            foto = (peca.getEquipa() == 10) ? "jesusPreto.png" : "jesusBranco.png";
+        }else {
+            foto = (peca.getEquipa() == 10) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
+        }
 
         return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
                 String.valueOf(peca.getEquipa()), peca.getNome(), foto};
