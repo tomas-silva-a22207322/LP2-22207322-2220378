@@ -172,7 +172,7 @@ public class TestGameManager {
         tabuleiro.setPecabyPosicao(0, 0, peca);
 
         String[] result = gameManager.getSquareInfo(0, 0);
-        String[] expected = {"1", "0", "10", "Rei", "crazy_emoji_black.png"};
+        String[] expected = {"1", "0", "10", "Rei", "cr7preto.png"};
 
         assertArrayEquals(expected, result);
     }
