@@ -63,5 +63,6 @@ Jesus branco
 Jesus preto
 
 Tabuleiro com as peças personalizadas:
+
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/54279034-9e8a-45f6-b26a-cda731750813)
 
