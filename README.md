@@ -2,7 +2,7 @@
 ![](diagrama.png?raw=true "Diagrama UML")
 ![Diagrama_UML_LP2](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148373961/6f04b528-2b62-47cd-a5a8-e4deab8bbc75)
 
-video demonstrativo: 
+video demonstrativo: https://youtu.be/Lek7hR8SUJ8
 
 Peça criativa:
 
