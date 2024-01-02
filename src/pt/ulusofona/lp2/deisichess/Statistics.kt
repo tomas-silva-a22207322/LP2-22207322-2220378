@@ -16,12 +16,12 @@ object StatisticsKt {
 
     private fun top5Capturas(manager: GameManager): List<String> {
         val pecasCapturadas = manager.getTabuleiro().getPecas()
-            .filter { !it.value.isCapturado } // Filtrar peças não capturadas
-            .map { it.value } // Mapear para as peças
+                .filter { !it.value.isCapturado } // Filtrar peças não capturadas
+                .map { it.value } // Mapear para as peças
 
         val capturasPorPeca = pecasCapturadas.groupBy(
-            keySelector = { it.nome }, // Agrupar por nome da peça
-            valueTransform = { it.capturas } // Transformar em uma lista de capturas
+                keySelector = { it.nome }, // Agrupar por nome da peça
+                valueTransform = { it.capturas } // Transformar em uma lista de capturas
         ).mapValues { it.value.sum() } // Somar as capturas por nome de peça
 
         val sortedCaptures = capturasPorPeca.toList().sortedByDescending { it.second } // Ordenar as capturas
@@ -39,17 +39,17 @@ object StatisticsKt {
         val dimensao = manager.getTabuleiro().getDimensao()
 
         val pecasPontos = manager.getTabuleiro().getPecas()
-            .filter { !it.value.isCapturado }
-            .map { it.value }
-            .groupBy(
-                keySelector = { it.nome },
-                valueTransform = { it.getPontuacaoCapturas() }
-            )
-            .mapValues { it.value.sum() }
-            .toList()
-            .filter { it.second > 0 }
-            .sortedByDescending { it.second }
-            .take(5)
+                .filter { !it.value.isCapturado }
+                .map { it.value }
+                .groupBy(
+                        keySelector = { it.nome },
+                        valueTransform = { it.getPontuacaoCapturas() }
+                )
+                .mapValues { it.value.sum() }
+                .toList()
+                .filter { it.second > 0 }
+                .sortedByDescending { it.second }
+                .take(5)
 
         return pecasPontos.map { (pecaNome, pontos) ->
             val peca = manager.getTabuleiro().getPecas().values.find { it.nome == pecaNome }
@@ -59,21 +59,21 @@ object StatisticsKt {
     }
     private fun pecasMais5Capturas(manager: GameManager): List<String> {
         return manager.getTabuleiro().getPecas()
-            .filter { !it.value.isCapturado }
-            .filter { it.value.getCapturas() > 5 }
-            .map { it.value }
-            .map { piece ->
-                val pecaNome = piece.getNome()
-                val pecaEquipa = if (piece.getEquipa() == 10) "PRETA" else "BRANCA"
-                val capturas = piece.getCapturas()
-                "$pecaEquipa: $pecaNome:$capturas"
-            }
+                .filter { !it.value.isCapturado }
+                .filter { it.value.getCapturas() > 5 }
+                .map { it.value }
+                .map { piece ->
+                    val pecaNome = piece.getNome()
+                    val pecaEquipa = if (piece.getEquipa() == 10) "PRETA" else "BRANCA"
+                    val capturas = piece.getCapturas()
+                    "$pecaEquipa:$pecaNome:$capturas"
+                }
     }
 
     private fun pecasMaisBaralhadas(manager: GameManager): List<String> {
         val pecasInvalidas = manager.getTabuleiro().getPecas()
-            .filter { it.value.getJogadasInvalidas() > 0 }
-            .map { it.value }
+                .filter { it.value.getJogadasInvalidas() > 0 }
+                .map { it.value }
 
         val maiorNumeroInvalidas = pecasInvalidas.maxByOrNull { it.getJogadasInvalidas() }?.getJogadasInvalidas() ?: 0
 
@@ -86,19 +86,19 @@ object StatisticsKt {
 
     private fun tiposCapturados(manager: GameManager): List<String> {
         val tipos = mapOf(
-            0 to "Rei",
-            1 to "Rainha",
-            2 to "Pónei mágico",
-            3 to "Padre da vila",
-            4 to "Torre Horizontal",
-            5 to "Torre Vertical",
-            6 to "Homer Simpson",
-            7 to "Joker"
+                0 to "Rei",
+                1 to "Rainha",
+                2 to "Pónei mágico",
+                3 to "Padre da vila",
+                4 to "Torre Horizontal",
+                5 to "Torre Vertical",
+                6 to "Homer Simpson",
+                7 to "Joker"
         )
 
         val tiposCapturados = manager.getTabuleiro().getPecas()
-            .filter { it.value.isCapturado() }
-            .mapNotNull { tipos[it.value.getTipo()] }
+                .filter { it.value.isCapturado() }
+                .mapNotNull { tipos[it.value.getTipo()] }
 
         return tiposCapturados.distinct()
     }
