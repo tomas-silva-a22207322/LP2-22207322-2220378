@@ -43,6 +43,7 @@ public class GameManager {
                         case 5 -> peca = new TorreVertical(id, tipo, equipa, nome);
                         case 6 -> peca = new HomerSimpson(id, tipo, equipa, nome);
                         case 7 -> peca = new Joker(id, tipo, equipa, nome);
+                        case 8 -> peca = new Jesus(id, tipo, equipa, nome);
                         default -> throw new InvalidGameInputException(i + 1, "Tipo de peca invalido");
                     }
 
