@@ -10,7 +10,7 @@ public class InvalidGameInputException extends Exception {
     }
 
     public int getLineWithError() {
-        return linhaComErro;
+        return linhaComErro + 2;
     }
 
     public String getProblemDescription() {
