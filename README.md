@@ -39,7 +39,6 @@ Para torres horizontais utilizamos fotos de torres de outros países.
 
 Torre vertical branca
 Para torres horizontais utilizamos fotos de torres de Portugal.
-
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/b6f800a5-724d-49b5-8179-bab081656d13)
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/5108dddc-74ab-445d-96cf-cfe917c35eb3)
 
