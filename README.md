@@ -2,12 +2,16 @@
 ![](diagrama.png?raw=true "Diagrama UML")
 ![Diagrama_UML_LP2](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148373961/6f04b528-2b62-47cd-a5a8-e4deab8bbc75)
 
+video demonstrativo: 
+
 Peça criativa:
+
 Para a peça criativa criámos Jesus que consegue mover como uma cruz, ou seja movimenta-se diretamente à esquerda, à direita ou acima, ou 2 abaixo.
 Quando esta peça move-se duas casas para baixo ela pode andar mesmo que exista peças pelo caminho.
 Esta peça não consegue capturar o Padre da Vila.
 
 Peças personalizadas:
+
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/d3e75e9c-a5c5-4e7b-b240-009ddd710253)
 Rei branco
 
@@ -64,4 +68,5 @@ Jesus preto
 
 Tabuleiro com as peças personalizadas:
 
-![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/20e98bba-0128-4df1-8872-2ca0cf2ee88d)
+![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/54279034-9e8a-45f6-b26a-cda731750813)
+
