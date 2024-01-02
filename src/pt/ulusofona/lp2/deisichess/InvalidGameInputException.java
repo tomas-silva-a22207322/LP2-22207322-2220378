@@ -14,6 +14,6 @@ public class InvalidGameInputException extends Exception {
     }
 
     public String getProblemDescription() {
-        return "Ocorreu um erro ao ler o ficheiro, na linha " + getLineWithError() + " com o seguinte problema: " + descricaoProblema;
+        return descricaoProblema;
     }
 }

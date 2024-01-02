@@ -51,7 +51,7 @@ public class GameManager {
                     pecasHM.put(id, peca);
                     getTabuleiro().setPecas(pecasHM);
                 } else {
-                    throw new InvalidGameInputException(i + 1, "DADOS" + (partes.length > 4 ? "A MAIS" : "A MENOS") + "(Esperava: 4 ; Obtive: " + partes.length + ")");
+                    throw new InvalidGameInputException(i + 1, "DADOS " + (partes.length > 4 ? "A MAIS" : "A MENOS") + " (Esperava: 4 ; Obtive: " + partes.length + ")");
                 }
             }
 
