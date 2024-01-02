@@ -1,7 +1,6 @@
 # LP2-22207322-2220378
 ![](diagrama.png?raw=true "Diagrama UML")
-![diagrama](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/289fd69a-0abf-4209-aa24-773c09a5d4a1)
-
+![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148373961/c6aaeea6-22e4-40f7-acc4-3ccd85083fa6)
 
 Peça criativa:
 Para a peça criativa criámos Jesus que consegue mover como uma cruz, ou seja movimenta-se diretamente à esquerda, à direita ou acima, ou 2 abaixo.
