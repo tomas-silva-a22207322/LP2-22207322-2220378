@@ -424,8 +424,8 @@ public class GameManager {
                 }
                 bw.write("\n");
             }
-            for (int i = 0; i < gameInfo.getMovimentos().size(); i++) {
-                bw.write(gameInfo.getMovimentos().get(i) + "\n");
+            for (int i = 0; i < getGameInfo().getMovimentos().size(); i++) {
+                bw.write(getGameInfo().getMovimentos().get(i) + "\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
