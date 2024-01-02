@@ -77,6 +77,52 @@ public class TestGameManager {
     }
 
     @Test
+    public void testJesus() {
+        GameManager gameManager = new GameManager();
+        String filePath = "test-files/testJesus.txt";
+        assertDoesNotThrow(() -> gameManager.loadGame(new File(filePath)));
+
+        assertTrue(gameManager.move(2, 1, 2, 3));
+
+        gameManager.undo();
+
+        assertFalse(gameManager.move(2, 1, 2, 2));
+        assertTrue(gameManager.move(2, 1, 3, 1));
+
+        assertTrue(gameManager.move(1, 0, 0, 1));
+
+        assertTrue(gameManager.move(3, 1, 2, 1));
+
+        assertTrue(gameManager.move(0, 1, 1, 0));
+
+        assertTrue(gameManager.move(2, 1, 1, 1));
+
+        assertTrue(gameManager.move(2, 0, 2, 1));
+
+        assertTrue(gameManager.move(1, 1, 1, 0));
+
+        assertTrue(gameManager.gameOver());
+        ArrayList<String> results = gameManager.getGameResults();
+        StringBuilder resultado = new StringBuilder();
+        for (String result : results) {
+            resultado.append(result).append("\n");
+        }
+        assertEquals("""
+                JOGO DE CRAZY CHESS
+                Resultado: VENCERAM AS PRETAS
+                ---
+                Equipa das Pretas
+                3
+                4
+                1
+                Equipa das Brancas
+                0
+                3
+                0
+                """, String.valueOf(resultado));
+    }
+
+    @Test
     public void testGetPieceInfo() {
         GameManager gameManager = new GameManager();
 

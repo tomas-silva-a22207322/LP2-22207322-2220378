@@ -1,0 +1,14 @@
+4
+8
+1:0:10:O Poderoso Chefao
+2:8:10:Nosso Senhor
+3:0:20:Chefe dos Indios
+4:1:20:A Barulhenta do Bairro
+5:1:20:A Barulhenta
+6:1:20:A do Bairro
+7:3:20:Padre da Vila
+8:1:20:A Dama Selvagem
+1:3:5:0
+0:4:2:6
+0:0:7:0
+0:0:8:0
