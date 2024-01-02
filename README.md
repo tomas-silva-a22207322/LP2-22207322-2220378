@@ -14,8 +14,8 @@ Peças personalizadas:
 
 Rei
 Para o rei escolhemos o Cristiano Ronaldo, pois este é um grande ídolo para os portugueses.
-![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/d3e75e9c-a5c5-4e7b-b240-009ddd710253)
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/11c59d42-406d-4890-a34b-30a75a031dc6)
+![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/d3e75e9c-a5c5-4e7b-b240-009ddd710253)
 
 Rainha
 Escolhemos usar imagems da rainha Elizabeth II, pois é uma das rainhas mais memoráveis.
