@@ -13,15 +13,11 @@ public class Jesus extends Peca{
         int dy = Math.abs(y1 - y0);
         int y = y1 - y0;
 
-        if (tabuleiro.getPecabyPosicao(x1, y1).getTipo() != 0) {
+        if (tabuleiro.getPecabyPosicao(x1,y1) != null && tabuleiro.getPecabyPosicao(x1, y1).getTipo() == 3) {
             return false;
         }
 
-        if (tabuleiro.getPecabyPosicao(x1, y1) == null) {
-            return true;
-        }
-
-        return (dx == 0 && dy == 1) || (dx == 1 && dy == 0) || (dx == 0 && y == 2);
+        return (dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 0 && y == 2);
     }
 
     public String getTipoNome() {return "Jesus";}
