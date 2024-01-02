@@ -23,7 +23,7 @@ Escolhemos usar imagems da rainha Elizabeth II, pois é uma das rainhas mais mem
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/2645fd63-5a53-499c-a28d-1d7fb073f10a)
 
 Ponei Mágico
-Escolhemos fotos cómicas de cavalos na net
+Escolhemos fotos cómicas de cavalos na internet
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/fdfde927-d41b-4c9b-8317-a5ee108b4ff0)
 ![image](https://github.com/tomas-silva-a22207322/LP2-22207322-2220378/assets/148213151/6fb1fe5a-2ac5-42c9-93e9-25325d717dbd)
 
