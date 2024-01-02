@@ -224,16 +224,16 @@ public class GameManager {
         String foto = "";
         int tipo = peca.getTipo();
         switch (tipo) {
-            case 0 -> foto = (peca.getEquipa() == 10) ? "cr7branco.png" : "cr7preto.png";
-            case 1 -> foto = (peca.getEquipa() == 10) ? "rainha branca.png" : "rainha preta.png";
-            case 2 -> foto = (peca.getEquipa() == 10) ? "cavaloBranco.png" : "cavaloPreto.png";
-            case 3 -> foto = (peca.getEquipa() == 10) ? "bispoBranco.png" : "bispoPreto.png";
-            case 4 -> foto = (peca.getEquipa() == 10) ? "torreHorBranca.png" : "torreHorPreta.png";
-            case 5 -> foto = (peca.getEquipa() == 10) ? "torreVerBranca.png" : "torreVerPreta.png";
-            case 6 -> foto = (peca.getEquipa() == 10) ? "homerBranco.png" : "homerPreto.png";
-            case 7 -> foto = (peca.getEquipa() == 10) ? "jokerBranco.png" : "jokerPreto.png";
-            case 8 -> foto = (peca.getEquipa() == 10) ? "jesusPreto.png" : "jesusBranco.png";
-            default -> foto = (peca.getEquipa() == 10) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
+            case 0 -> foto = (peca.getEquipa() == 20) ? "cr7branco.png" : "cr7preto.png";
+            case 1 -> foto = (peca.getEquipa() == 20) ? "rainha branca.png" : "rainha preta.png";
+            case 2 -> foto = (peca.getEquipa() == 20) ? "cavaloBranco.png" : "cavaloPreto.png";
+            case 3 -> foto = (peca.getEquipa() == 20) ? "bispoBranco.png" : "bispoPreto.png";
+            case 4 -> foto = (peca.getEquipa() == 20) ? "torreHorBranca.png" : "torreHorPreta.png";
+            case 5 -> foto = (peca.getEquipa() == 20) ? "torreVerBranca.png" : "torreVerPreta.png";
+            case 6 -> foto = (peca.getEquipa() == 20) ? "homerBranco.png" : "homerPreto.png";
+            case 7 -> foto = (peca.getEquipa() == 20) ? "jokerBranco.png" : "jokerPreto.png";
+            case 8 -> foto = (peca.getEquipa() == 20) ? "jesusPreto.png" : "jesusBranco.png";
+            default -> foto = (peca.getEquipa() == 20) ? "crazy_emoji_black.png" : "crazy_emoji_white.png";
         }
 
         return new String[]{String.valueOf(peca.getId()), String.valueOf(peca.getTipo()),
