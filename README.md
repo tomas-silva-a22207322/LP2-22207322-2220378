@@ -4,4 +4,5 @@
 
 
 Peça criativa:
-Para a peça criativa criámos Jesus que consegue mover para qualquer casa vazia, mas esta peça não pode capturar o rei, e apenas pode capturar caso esteja diretamente à esquerda, à direita ou acima, ou 2 abaixo, fazendo assim uma cruz.
+Para a peça criativa criámos Jesus que consegue mover como uma cruz, ou seja movimenta-se diretamente à esquerda, à direita ou acima, ou 2 abaixo.
+Esta peça não consegue capturar o Padre da Vila.
